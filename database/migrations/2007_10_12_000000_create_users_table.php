@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->string('prenom', 60);                               // colonne "prenom" type chaîne de caractères limite 60 caractères
 
-            $table->string('pseudo', 60)->unique();;                    // colonne "pseudo" type chaîne de caractères limite 60 caractères valeur unique
+            $table->string('pseudo', 60);                               // colonne "pseudo" type chaîne de caractères limite 60 caractères valeur unique
 
             $table->string('image', 50)->nullable();                    // colonne "image" type chaîne de caractères limite 50 caractères pouvant être nulle
 
