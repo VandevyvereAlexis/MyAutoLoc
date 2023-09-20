@@ -50,9 +50,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            //'name'        => ['required', 'string', 'max:255'],
+            //'email'       => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //'password'    => ['required', 'string', 'min:8', 'confirmed'],
+            'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',             // L'image est optionnelle, doit être de type image et respecter les formats spécifiés, ne doit pas dépasser 2048 Ko.
         ]);
     }
 
@@ -65,9 +66,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            //'name'        => $data['name'],
+            //'email'       => $data['email'],
+            //'password'    => Hash::make($data['password']),
+            'image'         => isset($data['image']) ? uploadImage($data['image']) : 'user.png',        // Image de profil, soit téléchargée via la fonction 'uploadImage' si présente, sinon image par défaut 'user.png'.  
         ]);
     }
 }
+
+
