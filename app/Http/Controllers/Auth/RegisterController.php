@@ -54,6 +54,7 @@ class RegisterController extends Controller
             //'email'       => ['required', 'string', 'email', 'max:255', 'unique:users'],
             //'password'    => ['required', 'string', 'min:8', 'confirmed'],
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',             // L'image est optionnelle, doit être de type image et respecter les formats spécifiés, ne doit pas dépasser 2048 Ko.
+            'politique'     => ['required'],                                                     // Récupère l'élément de case à cocher avec l'ID "politique", requis.
         ]);
     }
 
