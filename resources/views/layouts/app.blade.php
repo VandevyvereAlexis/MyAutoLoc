@@ -1,80 +1,115 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <!-- FONT "PROMPT" -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+        <!-- FONT "MONTSERRAT" -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-                    </ul>
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+        <!-- Scripts -->
+        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+    </head>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+    <!-- BODY 
+    ==================================================================-->
+    <body>
+        <div id="app">
+
+
+            <!-- NAVBAR 
+            ==================================================================-->
+            <nav class="navbar navbar-expand-md navbar-light p-0 fixed-top rounded-bottom mx-auto border-secondary border-bottom bg-dark" data-bs-theme="dark" id="navbar">
+                <div class="container-fluid col-md-11 col-sm-12">
+
+
+                    <!-- LOGO -->
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" id="logo_navbar_app_blade" style="width: 8rem">
+                    </a>
+
+                    <!-- MENU BURGER -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+
+                    <!-- LIENS D'ATHENTIFICATION
+                    ==================================================================-->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <div class="navbar-nav gap-3" id="liens-navbar">
+
+                            @guest
+                                @if (Route::has('login'))
+
+                                    <!-- LIEN CONNEXION -->
+                                    <a class="nav-link text-light liste position-relative py-0 text-center" href="{{ route('login') }}"><span>{{ __('Connexion') }}</span></a>
+
+                                @endif
+
+                                @if (Route::has('register'))
+
+                                    <!-- LIEN INSCRIPTION -->
+                                    <a class="nav-link liste position-relative py-0 text-light text-center" href="{{ route('register') }}"><span>{{ __('Inscription') }}</span></a>
+
+                                @endif
+                            @else
+
+                                <!-- NAVBAR DEROULER 
+                                ==================================================================-->
+                                <div class="nav-item dropdown">
+
+                                    <!-- AFFICHAGE PSEUDO -->
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->pseudo }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-</body>
+                                        <!-- LIEN DECONNEXION -->
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Déconnexion') }}</a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            @endguest
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </nav>
+
+
+            <!-- MAIN 
+            ==================================================================-->
+            <main>
+                @yield('content')
+            </main>
+
+
+        </div>
+    </body>
+
+
 </html>

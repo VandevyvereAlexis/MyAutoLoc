@@ -1,73 +1,144 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+    <!-- CONTAINER-FLUID 
+    ============================================================= -->
+    <div class="container-fluid">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        <!-- MESSAGES ALERTE SUCCESS/DANGER
+        ============================================================= -->
+        @include('messages')
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+
+
+
+        <!-- GAUCHE ( FORMULAIRE INSCRIPTION )
+        ============================================================= -->
+        <div class="row align-items-center justify-content-center" id="row_login">
+            <div class="col-md-6 col-sm-11 d-flex justify-content-center" id="left_login">
+
+
+                <!-- CARD 
+                ============================================================= -->
+                <div class="card col-md-10 col-sm-12 border-0 border-secondary">
+
+
+                    <!-- CARD HEADER -->
+                    <h1 class="card-header bg-transparent text-center border-0"><span class="border-bottom border-secondary border-2">{{ __('Connexion') }}</span></h1>
+
+                    <!-- CARD BODY -->
+                    <div class="card-body my-2 rounded" id="card_body_login">
+
+
+                        <!-- FORMULAIRE INSCRIPTION 
+                        ============================================================= -->
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+
+                            <!-- ( ADRESSE E-MAIL - MOT DE PASSE ) -->
+                            <div class="row justify-content-center">
+
+
+                                <!-- E-MAIL -->
+                                <div class="col-11 mb-4" style="width: 40rem">
+                                    <label for="email" class="col-form-label ms-2 pb-1"><small>{{ __('_Adresse e-mail_') }}</small></label>
+                                    <input id="email" type="email" class="form-control border-secondary p-3 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Adresse e-mail..." autofocus>
+
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                <!-- MOT DE PASSE -->
+                                <div class="col-11 mb-5" style="width: 40rem">
+                                    <label for="password" class="col-form-label ms-2 pb-1"><small>{{ __('_Mot de passe_') }}</small></label>
+                                    <input id="password" type="password" class="form-control border-secondary p-3 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Mot de passe...">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+
+                                <!-- CHECKBOX + PASSWORD OUBLIE -->
+                                <div class="col-11 mb-3 d-flex justify-content-between border-bottom border-secondary" style="width: 40rem">
+
+                                    <!-- CHECKBOX -->
+                                    <div class="form-check d-flex align-items-center">
+                                        <input class="form-check-input border" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-check-label ms-1 mt-1" for="remember"><small>{{ __('Rester connecté') }}</small></label>
+                                    </div>
+
+                                    <!-- PASSWORD OUBLIE -->
+                                    @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Oublié ?') }}</a>
+                                    @endif
+
+                                </div>
+
+
+                                <!-- BOUTON "CONNEXION" -->
+                                <div class="col-11 mt-3 mb-2" style="width: 40rem">
+                                    <button type="submit" class="btn btn-primary col-12">{{ __('Connexion') }}</button>
+                                </div>
+
+
+                                <!-- LIEN INSCRIPTION -->
+                                <div class="col-11 mt-3 text-center" style="width: 40rem">
+                                    <p>Pas encore de compte MyAutoLoc ? <a href="{{ route('register') }}">S'inscrire</a></p>
+                                </div>
+
+
                             </div>
-                        </div>
-                    </form>
+
+
+                        </form>
+
+
+                    </div>
+
+
                 </div>
+
+
             </div>
+
+
+            <!-- DROITE (IMAGE)
+            ============================================================= -->
+            <div class="col-md-6 border-right p-0" id="right_login">
+                <img class="rounded border-start border-2 border-secondary" src="./images/fond.jpg" alt="Land-Rover">
+            </div>
+
+
         </div>
+
+
     </div>
-</div>
+
+
+
+
+
+    <!-- FOOTER
+    ============================================================= -->
+    @include('footer')
+
+
+
+
+
 @endsection

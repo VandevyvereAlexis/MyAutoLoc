@@ -1,0 +1,346 @@
+/* RESET 
+=========================================================================== */
+body
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5
+{
+    font-family: 'Prompt', sans-serif;
+    font-weight: 500;
+}
+
+p, small, a
+{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* APP.BLADE 
+=========================================================================== */
+
+/* NAVBAR */ 
+#navbar 
+{
+    background: rgba(0, 0, 0, 0.104);
+    backdrop-filter: blur(10px);
+}
+
+/* LOGO NAVBAR */ 
+#logo_navbar_app_blade 
+{
+    width: 8.8rem;
+}
+
+/* LIENS BEFORE */
+#navbar #liens-navbar span::before 
+{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 0%;
+    height: 1px;
+    background-color: #fffcf0;
+    transition: all 0.4s ease-out;
+}
+
+/* LIENS HOVER BEFORE */
+#navbar #liens-navbar span:hover::before 
+{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* REGISTER.BLADE 
+=========================================================================== */
+
+/* ROW FICHIER REGISTER.BLADE */
+#row_register
+{
+    min-height: 100vh;
+}
+
+/* TITRE */ 
+#row_register h1 {
+    font-size: 3rem;
+    color: rgb(61, 61, 61);
+}
+
+/* TEXTE PLACEHOLDER INPUT */
+#card_body_register input::placeholder
+{
+    color: #999;
+    font-size: 11px;
+}
+
+/* TEXTE DATE RENSEIGNEE */
+#card_body_register #date_permis 
+{
+    font-size: 11px;
+    color: rgb(61, 61, 61);
+}
+
+/* TEXTE FICHIER CHARGE */
+#card_body_register #image
+{
+    font-size: 12px;
+}
+
+/* BOUTTON FICHIER IMAGE */
+#card_body_register #image::-webkit-file-upload-button 
+{
+    font-size: 11px;
+    color:#999;
+    border-right: 1px solid #999;
+}
+
+/* CARD BODY */
+#card_body_register
+{
+    overflow-y: scroll; 
+    height: 70vh;
+}
+
+/* PARTIE DROITE */
+#right_register img 
+{
+    object-fit: cover; 
+    width: 100%; 
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* LOGIN.BLADE 
+=========================================================================== */
+
+/* ROW FICHIER LOGIN.BLADE */
+#row_login
+{
+    min-height: 100vh;
+}
+
+/* TITRE */ 
+#row_login h1 {
+    font-size: 3rem;
+    color: rgb(61, 61, 61);
+}
+
+/* TEXTE PLACEHOLDER INPUT */
+#card_body_login input::placeholder
+{
+    color: #999;
+    font-size: 11px;
+}
+
+/* PARTIE DROITE */
+#right_login img 
+{
+    object-fit: cover; 
+    width: 100%; 
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EMAIL.BLADE 
+=========================================================================== */
+
+/* ROW FICHIER LOGIN.BLADE */
+#row_email
+{
+    min-height: 100vh;
+}
+
+/* TITRE */ 
+#row_email h1 {
+    font-size: 3rem;
+    color: rgb(61, 61, 61);
+}
+
+/* TEXTE PLACEHOLDER INPUT */
+#card_body_email input::placeholder
+{
+    color: #999;
+    font-size: 11px;
+}
+
+/* PARTIE DROITE */
+#right_email img 
+{
+    object-fit: cover; 
+    width: 100%; 
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FOOTER.BLADE 
+=========================================================================== */
+
+/* © 2023 - Tous droits réservés */
+footer h5
+{
+    font-weight: 300;
+    font-size: 11px;
+}
+
+/* Mentions légales et la politique de confidentialité */
+footer a
+{
+    font-weight: 300;
+    font-size: 11px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MEDIA QUERIES 
+=========================================================================== */
+
+/* 1023 PX */
+@media screen and ( max-width: 1023px ) 
+{
+    /* REGISTER.BLADE 
+    ========================== */ 
+
+    /* Partie droite */ 
+    #right_register 
+    {
+        display: none;
+    }
+
+
+    /* LOGIN.BLADE 
+    ========================== */ 
+
+    /* Partie droite */ 
+    #right_login 
+    {
+        display: none;
+    }
+
+
+    /* EMAIL.BLADE 
+    ========================== */ 
+
+    /* Partie droite */ 
+    #right_email 
+    {
+        display: none;
+    }
+}
+
+
+
+/* 767 PX */
+@media screen and ( max-width: 767px ) 
+{
+    /* APP.BLADE 
+    ===================================*/
+
+    /* Menu deroulant connexion, inscription */ 
+    #liens-navbar
+    {
+        padding-bottom: 15px;
+    }
+
+    /* Liens before */
+    #navbar #liens-navbar span::before 
+    {
+        content: none;
+        position: none;
+        bottom: none;
+        left: none; 
+        transform: none;
+        width: none;
+        height: none;
+        background-color: none;
+        transition: none;
+    }
+
+    /* Liens hover before */
+    #navbar #liens-navbar span:hover::before 
+    {
+        width: none;
+    }
+}
