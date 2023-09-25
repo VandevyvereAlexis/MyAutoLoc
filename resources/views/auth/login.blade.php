@@ -120,7 +120,7 @@
             <!-- DROITE (IMAGE)
             ============================================================= -->
             <div class="col-md-6 border-right p-0" id="right_login">
-                <img class="rounded border-start border-2 border-secondary" src="./images/fond.jpg" alt="Land-Rover">
+                <img class="py-2 pe-2" src="./images/fond.jpg" alt="Land-Rover">
             </div>
 
 

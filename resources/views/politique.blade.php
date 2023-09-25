@@ -5,8 +5,8 @@
 
     <!-- MENTIONS LEGALES
     ===================================================================================== -->
-    <div class="container-fluid pt-5 my-5">
-        <div class="row justify-content-center align-items-center">
+    <div class="container-fluid py-5">
+        <div class="row justify-content-center align-items-center pt-4">
             <div class="col-md-10 col-sm-12">
 
 

@@ -90,7 +90,7 @@ p, small, a
 /* ROW FICHIER REGISTER.BLADE */
 #row_register
 {
-    min-height: 100vh;
+    min-height: 96vh;
 }
 
 /* TITRE */ 
@@ -139,7 +139,8 @@ p, small, a
 {
     object-fit: cover; 
     width: 100%; 
-    height: 100vh;
+    height: 95vh;
+    border-radius: 20px;
 }
 
 
@@ -161,7 +162,7 @@ p, small, a
 /* ROW FICHIER LOGIN.BLADE */
 #row_login
 {
-    min-height: 100vh;
+    min-height: 96vh;
 }
 
 /* TITRE */ 
@@ -182,7 +183,8 @@ p, small, a
 {
     object-fit: cover; 
     width: 100%; 
-    height: 100vh;
+    height: 95vh;
+    border-radius: 20px;
 }
 
 
@@ -205,7 +207,7 @@ p, small, a
 /* ROW FICHIER LOGIN.BLADE */
 #row_email
 {
-    min-height: 100vh;
+    min-height: 96vh;
 }
 
 /* TITRE */ 
@@ -226,7 +228,8 @@ p, small, a
 {
     object-fit: cover; 
     width: 100%; 
-    height: 100vh;
+    height: 95vh;
+    border-radius: 20px;
 }
 
 
@@ -260,6 +263,44 @@ footer a
     font-size: 11px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EDIT.BLADE "USER"
+=========================================================================== */
+#row_1_edit_user
+{
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+}
+
+#row_1_edit_user img 
+{
+    width: 9rem; 
+    height: 9rem;
+}
+
+#row_2_edit_user
+{
+    background-color: #eaecf1c5
+}
+
+#row_2_edit_user h1 
+{
+    font-weight: 300
+}
 
 
 

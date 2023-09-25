@@ -2,7 +2,7 @@
 ===================================================================================== -->
 <footer class="p-0">
 
-    <div class="container-fluid bg-dark rounded-top p-1 border border-secondary">
+    <div class="container-fluid bg-dark rounded-top p-5 border border-secondary" style="background-image: url('/images/fond_4.jpg'); width: 100%; background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="row p-0 m-0">
             <div class="col text-center">
 

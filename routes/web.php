@@ -14,17 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// DEFINIT LES ROUTES D'AUTHENTIFICATION
 Auth::routes();
 
 
+// ROUTE PAGE D'ACCUEIL (pour accès au site, si pas inscrit)
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// ROUTE PAGE D'ACCUEIL
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 // ROUTE PAGE POLITIQUE / MENTIONS LEGALES
 Route::get('/politique', [App\Http\Controllers\HomeController::class, 'politique'])->name('politique');
+
+
+// RESSOURCE POUR LA GESTION DES UTILISATEURS (à l'exception de index, create et store)
+Route::resource('/user', App\Http\Controllers\UserController::class)->except('index', 'create', 'store');
+
+
+
+
+
 
 

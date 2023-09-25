@@ -152,7 +152,7 @@
 
 
                                 <!-- E-MAIL -->
-                                <div class="col-11 mb-4" style="width: 40rem">
+                                <div class="col-12 mb-4" style="width: 40rem">
                                     <label for="email" class="col-form-label ms-2 pb-1"><small>{{ __('_Adresse e-mail_') }}</small></label>
                                     <input id="email" type="email" class="form-control border-secondary p-3 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Adresse e-mail...">
 
@@ -165,7 +165,7 @@
 
 
                                 <!-- MOT DE PASSE -->
-                                <div class="col-11 mb-3" style="width: 40rem">
+                                <div class="col-12 mb-3" style="width: 40rem">
                                     <label for="password" class="col-form-label ms-2 pb-1"><small>{{ __('_Mot de passe_') }}</small></label>
                                     <input id="password" type="password" class="form-control border-secondary p-3 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="8 et 15 caracteres. minimum 1 lettre, 1 chiffre et 1 caractère spécial...">
                                     <div id="passwordHelp" class="form-text ms-2"><small>8 et 15 caracteres. minimum 1 lettre, 1 chiffre et 1 caractère spécial</small></div>
@@ -179,7 +179,7 @@
 
 
                                 <!-- CONFIRMATION MOT DE PASSE -->
-                                <div class="col-11 mb-4" style="width: 40rem">
+                                <div class="col-12 mb-4" style="width: 40rem">
                                     <label for="password-confirm" class="col-form-label ms-2 pb-1"><small>{{ __('_Confirmez le mot de passe_') }}</small></label>
                                     <input id="password-confirm" type="password" class="form-control border-secondary p-3" name="password_confirmation" required autocomplete="new-password" placeholder="Confirmez le mot de passe...">
                                 </div>
@@ -199,20 +199,20 @@
 
 
                                 <!-- CHECKBOX + LABEL MENTIONS LEGALES --> 
-                                <div class="col-11 mb-4 d-flex mt-4" style="width: 40rem">
+                                <div class="col-12 mb-4 d-flex mt-4" style="width: 40rem">
                                     <input type="checkbox" name="politique" id="politique" onclick="toggleValidationButtonDisplay()">
                                     <label class="ms-2" for="politique"><small>J'ai lu et j'accepte les <a href="{{ route('politique') }}">mentions légales et la politique de confidentialité</a></small></label>
                                 </div>
 
 
                                 <!-- BOUTON "INSCRIPTION"  --> 
-                                <div class="col-11 mt-2 mb-3" style="width: 40rem">
+                                <div class="col-12 mt-2 mb-3" style="width: 40rem">
                                     <button type="submit" class="btn btn-primary col-12" id="valider" style="visibility: hidden">{{ __('S\'inscrire') }}</button>
                                 </div>
 
 
                                 <!-- LIEN RETOUR A LA CONNEXION -->
-                                <div class="col-11 mt-2 text-center" style="width: 40rem">
+                                <div class="col-12 mt-2 text-center" style="width: 40rem">
                                     <a class="text-dark" href="{{ route('login') }}">{{ __('- Retour à la connexion -') }}</a>
                                 </div>
 
@@ -234,8 +234,8 @@
 
             <!-- DROITE (IMAGE)
             ============================================================= -->
-            <div class="col-md-6 border-right p-0" id="right_email">
-                <img class="rounded border-start border-2 border-secondary" src="./images/fond.jpg" alt="Land-Rover">
+            <div class="col-md-6 p-0" id="right_register">
+                <img class="py-2 pe-2" src="./images/fond.jpg" alt="Land-Rover">
             </div>
 
 

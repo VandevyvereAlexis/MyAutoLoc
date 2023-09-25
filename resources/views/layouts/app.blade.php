@@ -74,11 +74,14 @@
                                 <div class="nav-item dropdown">
 
                                     <!-- AFFICHAGE PSEUDO -->
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->pseudo }}
+                                    <a href="{{ route('user.edit', $user = Auth::user() )}}" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <img src="{{ asset("images/$user->image") }} " class="rounded-circle" style="width: 2.1rem; height: 2.1rem" alt="imageUtilisateur">
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                                        <!-- LIEN VERS "MON COMPTE" -->
+                                        <a class="dropdown-item " href="{{ route('user.edit', $user = Auth::user() )}}">Mon compte</a>
 
                                         <!-- LIEN DECONNEXION -->
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Déconnexion') }}</a>
