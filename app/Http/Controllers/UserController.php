@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;                        // Importer la classe "User"
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,6 +20,7 @@ class UserController extends Controller
     }
 
 
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -27,6 +30,7 @@ class UserController extends Controller
 
         // Affiche le formulaire de modification de l'utilisateur spécifié en paramètre et renvoie la vue correspondante.
     }
+
 
 
     /**
@@ -69,6 +73,7 @@ class UserController extends Controller
     }
 
 
+
     /**
      * Remove the specified resource from storage.
      */
@@ -87,5 +92,58 @@ class UserController extends Controller
             // Redirige vers la page précédente avec un erreur
             return redirect()->back()->withErrors(['erreur' => 'suppression du compte impossible']);
         }
+    }
+
+
+
+    // METHODE DE MISE A JOUR DU MOT DE PASSE
+    public function updatePassword(Request $request, User $user)
+    {
+
+        // Validation des champs du formulaire
+        $request->validate([
+
+            'actuel_password' => 'required',
+            'nouveau_password' => [
+
+                'required', 
+                'confirmed',
+                Password::min(8)    // Longueur minimale de 8 caractères
+                    ->mixedCase()   // Au moins une lettre minuscule et une lettre majuscule
+                    ->letters()     // Au moins une lettre
+                    ->numbers()     // Au moins un chiffre
+                    ->symbols()     // Au moins un caractère spécial
+
+                ]
+
+        ]);
+
+        // Récupération de l'utilisateur actuel
+        $user = User::find(Auth::user()->id);               // L'utilisateur connecté
+        $actuelPassword = $request->actuel_password;        // Mot de passe actuel saisi par l'utilisateur
+        $actuelPasswordHashed = $user->password;            // Mot de passe actuel haché dans la base de données
+        $nouveau_password = $request->nouveau_password;     // Nouveau mot de passe saisi par l'utilisateur
+
+        // Vérification si le mot de passe actuel saisi correspond au mot de passe haché dans la base de données
+        if (Hash::check($actuelPassword, $actuelPasswordHashed)) 
+        {
+
+            // Vérification si le mot de passe actuel et le nouveau mot de passe sont différents
+            if ($actuelPassword !== $nouveau_password) 
+            {
+
+                // Mise à jour du mot de passe dans la base de données avec le nouveau mot de passe haché
+                $user->password = Hash::make($nouveau_password);    
+                $user->save();                                      
+                return redirect()->back()->with('message', 'le mot de passe a bien été modifié');
+
+            } else {
+                return redirect()->back()->withErrors(['password_error', 'ancien et nouveau mot de passe identique']);
+            }
+
+        } else {
+            return redirect()->back()->withErrors(['password_error', 'mot de passe actuel saisie incorrect']);
+        } 
+
     }
 }

@@ -44,12 +44,76 @@
 
 
 
-        <!-- MODIFICATIONS DES INFORMATION
+        <!-- MODIFICATIONS PASSWORD + INFORMATIONS
         ============================================================= -->
         <div class="row justify-content-center my-5 gap-1">
 
-            <!-- SECTION MODIF INFOS -->
+            <!-- SECTION MODIF PASSWORD + MODIF INFOS -->
             <div class="col-md-5 col-sm-12 border-end mb-5">
+
+
+                <!-- CARD -->
+                <div class="card border-0 mx-auto mb-5" style="max-width: 30rem" id="card_mofif_infos">
+
+                    <!-- FORMULAIRE MODIF PASSWORD -->
+                    <form method="POST" action="{{ route('updatepassword', $user) }}">
+                    @csrf
+                    @method('PUT')
+
+                        <div class="row justify-content-center">
+                            <h5 class="ms-1 mb-4">Modification du mot de passe</h5>
+
+                            <!-- ANCIEN PASSWORD -->
+                            <div class="col-12 mb-4">
+                                <label for="password" class="col-form-label ms-2 pb-1"><small>{{ __('Mot de passe actuel') }}</small></label>
+                                <input id="password" type="password" class="form-control border-secondary @error('password') is-invalid @enderror" name="actuel_password" value="{{ old('password') }}" required autocomplete="password" autofocus>
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- NOUVEAU PASSWORD -->
+                            <div class="col-12 mb-4">
+                                <label for="password" class="col-form-label ms-2 pb-1"><small>{{ __('Nouveau mot de passe') }}</small></label>
+                                <input id="password" type="password" class="form-control border-secondary @error('password') is-invalid @enderror" name="nouveau_password" value="{{ old('password') }}" required autocomplete="password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- CONFIRMATION NOUVEAU PASSWORD -->
+                            <div class="col-12 mb-4">
+                                <label for="password" class="col-form-label ms-2 pb-1"><small>{{ __('Confirmez nouveau mot de passe') }}</small></label>
+                                <input id="password" type="password" class="form-control border-secondary @error('password') is-invalid @enderror" name="nouveau_password_confirmation" value="{{ old('password') }}" required autocomplete="password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- BOUTON "MODIFIER" --> 
+                            <div class="col-12 border-bottom border-secondary pb-4">
+                                <button type="submit" class="btn btn-primary col-12"><small>{{ __('Modifier le mot de passe') }}</small></button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+
+
 
                 <!-- CARD -->
                 <div class="card border-0 mx-auto" style="max-width: 30rem" id="card_mofif_infos">
@@ -65,7 +129,7 @@
                             <!-- PSEUDO -->
                             <div class="col-12 mb-4">
                                 <label for="pseudo" class="col-form-label ms-2 pb-1"><small>{{ __('Pseudo') }}</small></label>
-                                <input id="pseudo" type="text" class="form-control border-secondary @error('pseudo') is-invalid @enderror" name="pseudo" value="{{ $user->pseudo }}" required autocomplete="pseudo" autofocus>
+                                <input id="pseudo" type="text" class="form-control border-secondary @error('pseudo') is-invalid @enderror" name="pseudo" value="{{ $user->pseudo }}" required autocomplete="pseudo">
 
                                 @error('pseudo')
                                     <span class="invalid-feedback" role="alert">
@@ -183,6 +247,8 @@
 
 
                         </div>
+
+
                     </form>
 
 
@@ -280,7 +346,7 @@
 
 
                 <!-- BLOC TEXT "ADRESSES EXISTANTES" -->
-                <div class="row mx-auto border-top border-secondary mt-4 mb-4" style="max-width: 30rem" id="row_2_edit_user">
+                <div class="row mx-auto border-top border-secondary mt-5 mb-4" style="max-width: 30rem" id="row_2_edit_user">
                     <h5 class="text-center p-2"><span>Adresses existantes</span></h5>
                 </div>
 
@@ -347,7 +413,9 @@
                                     <button type="submit" class="btn btn-primary col-12"><small>{{ __('Modifier') }}</small></button>
                                 </div>
 
+
                             </div>
+
 
                         </form>
 
@@ -365,7 +433,7 @@
 
 
                     </div>
-                
+
 
                 @endforeach
 

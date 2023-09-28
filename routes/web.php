@@ -34,9 +34,12 @@ Route::get('/politique', [App\Http\Controllers\HomeController::class, 'politique
 Route::resource('/user', App\Http\Controllers\UserController::class)->except('index', 'create', 'store');
 
 
-// Route  "ADRESSE"
+// Route "ADRESSE"
 Route::resource('/adresse', App\Http\Controllers\AdresseController::class)->except('index', 'create', 'edit');
 
+
+// ROUTE VERS "USERCONTROLLER" POUR MISE A JOUR DU MOT DE PASSE
+Route::put('/user/updatepassword/{user}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('updatepassword');
 
 
 
