@@ -34,6 +34,10 @@ Route::get('/politique', [App\Http\Controllers\HomeController::class, 'politique
 Route::resource('/user', App\Http\Controllers\UserController::class)->except('index', 'create', 'store');
 
 
+// Route  "ADRESSE"
+Route::resource('/adresse', App\Http\Controllers\AdresseController::class)->except('index', 'create', 'edit');
+
+
 
 
 

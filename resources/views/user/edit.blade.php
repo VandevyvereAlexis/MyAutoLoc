@@ -37,13 +37,22 @@
 
 
 
+
+
+
+
+
+
+
         <!-- MODIFICATIONS DES INFORMATION
         ============================================================= -->
-        <div class="row justify-content-center my-5">
-            <div class="col-md-5 col-sm-12 border-end border-secondary">
+        <div class="row justify-content-center my-5 gap-1">
+
+            <!-- SECTION MODIF INFOS -->
+            <div class="col-md-5 col-sm-12 border-end mb-5">
 
                 <!-- CARD -->
-                <div class="card border-0 mx-auto" style="max-width: 30rem">
+                <div class="card border-0 mx-auto" style="max-width: 30rem" id="card_mofif_infos">
 
                     <!-- FORMULAIRE MODIF INFOS -->
                     <form method="POST" action="{{ route('user.update', $user) }}" enctype="multipart/form-data">
@@ -168,7 +177,7 @@
 
 
                             <!-- BOUTON "MODIFIER" --> 
-                            <div class="col-12 mb-5 border-bottom border-secondary pb-4">
+                            <div class="col-12 border-bottom border-secondary pb-4">
                                 <button type="submit" class="btn btn-primary col-12">{{ __('Modifier mes informations') }}</button>
                             </div>
 
@@ -177,11 +186,10 @@
                     </form>
 
 
-
                     <!-- BOUTON SUPPRESSION COMPTE _
                     ============================================================= -->
-                    <div class="col-12 text-center">
-                        <p>Suppression du compte</p>
+                    <div class="col-12 text-center mt-3">
+                        <p class="mb-2">Suppression du compte</p>
                         <form method="POST" action="{{ route('user.destroy', $user) }}">
                         @csrf
                         @method("delete")
@@ -191,21 +199,190 @@
 
 
                 </div>
+
+
             </div>
 
 
 
-            <div class="col-md-5"></div>
+
+
+
+
+
+
+
+            <!-- SECTION CREATION ADRESSE + BOUCLE ADRESSES EXISTANTES
+            ============================================================= -->
+            <div class="col-md-5 col-sm-12 border-start">
+
+                <!-- CARD -->
+                <div class="card border-0 mx-auto" style="max-width: 30rem">
+
+                    <!-- FORMULAIRE CREATION ADRESSE -->
+                    <form method="POST" action="{{ route('adresse.store') }}">
+                    @csrf
+
+                        <div class="row justify-content-center">
+                            <h5 class="ms-1 mb-4">Créer une adresse</h5>
+
+                            <!-- VILLE -->
+                            <div class="col-12 mb-4">
+                                <label for="ville" class="col-form-label ms-2 pb-1"><small>{{ __('Ville') }}</small></label>
+                                <input id="ville" type="text" placeholder="Ville..." class="form-control border-secondary @error('ville') is-invalid @enderror" name="ville" value="{{ old('ville') }}" required autocomplete="ville">
+
+                                @error('ville')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- CODE POSTAL -->
+                            <div class="col-12 mb-4">
+                                <label for="code_postal" class="col-form-label ms-2 pb-1"><small>{{ __('Code postal') }}</small></label>
+                                <input id="code_postal" type="text" placeholder="Code postal..." class="form-control border-secondary @error('code_postal') is-invalid @enderror" name="code_postal" value="{{ old('code_postal') }}" required autocomplete="code_postal">
+
+                                @error('code_postal')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- ADRESSE -->
+                            <div class="col-12 mb-4">
+                                <label for="adresse" class="col-form-label ms-2 pb-1"><small>{{ __('Adresse') }}</small></label>
+                                <input id="adresse" type="text" placeholder="Adresse..." class="form-control border-secondary @error('adresse') is-invalid @enderror" name="adresse" value="{{ old('adresse') }}" required autocomplete="adresse">
+
+                                @error('adresse')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- BOUTON "MODIFIER" --> 
+                            <div class="col-12 mb-5">
+                                <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+                                <button type="submit" class="btn btn-primary col-12"><small>{{ __('Créer mon adresse') }}</small></button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+
+
+
+                <!-- BLOC TEXT "ADRESSES EXISTANTES" -->
+                <div class="row mx-auto border-top border-secondary mt-4 mb-4" style="max-width: 30rem" id="row_2_edit_user">
+                    <h5 class="text-center p-2"><span>Adresses existantes</span></h5>
+                </div>
+
+
+
+
+
+                <!-- BOUCLE ADRESSES EXISTANTES
+                ============================================================= -->
+                @foreach ($user->adresses as $adresse)
+
+                    <!-- CARD -->
+                    <div class="card border mx-auto mb-4 p-3 border-secondary" style="max-width: 30rem">
+
+                        <!-- Formulaire modif infos  -->
+                        <form method="POST" action="{{ route('adresse.update', $adresse) }}">
+                        @csrf
+                        @method('PUT')
+
+                            <div class="row justify-content-center">
+
+                                <!-- AFFICHAGE ADRESSE -->
+                                <h6 class="mb-3 ms-3"><small class="border-bottom border-primary">{{$adresse->adresse}} {{$adresse->code_postal}} {{$adresse->ville}}</small></h6>
+
+                                <!-- VILLE -->
+                                <div class="col-12 mb-4">
+                                    <label for="ville" class="col-form-label ms-2 pb-1"><small>{{ __('Ville') }}</small></label>
+                                    <input id="ville" type="text" class="form-control border-secondary @error('ville') is-invalid @enderror" name="ville" value="{{ $adresse->ville }}" required autocomplete="ville">
+
+                                    @error('ville')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <!-- CODE POSTAL -->
+                                <div class="col-12 mb-4">
+                                    <label for="code_postal" class="col-form-label ms-2 pb-1"><small>{{ __('Code postal') }}</small></label>
+                                    <input id="code_postal" type="text" class="form-control border-secondary @error('code_postal') is-invalid @enderror" name="code_postal" value="{{ $adresse->code_postal }}" required autocomplete="code_postal">
+
+                                    @error('code_postal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <!-- ADRESSE -->
+                                <div class="col-12 mb-4">
+                                    <label for="adresse" class="col-form-label ms-2 pb-1"><small>{{ __('Adresse') }}</small></label>
+                                    <input id="adresse" type="text" class="form-control border-secondary @error('adresse') is-invalid @enderror" name="adresse" value="{{ $adresse->adresse }}" required autocomplete="adresse">
+
+                                    @error('adresse')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <!-- BOUTON "MODIFIER" --> 
+                                <div class="col-12 mb-3 border-bottom border-secondary pb-4">
+                                    <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+                                    <button type="submit" class="btn btn-primary col-12"><small>{{ __('Modifier') }}</small></button>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+
+                        <!-- BOUTON SUPPRESSION COMPTE _
+                        ============================================================= -->
+                        <div class="col-12 text-center">
+                            <p class="mb-2">Suppression adresse</p>
+                            <form action="{{ route('adresse.destroy', $adresse) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                                <button type="submit" class="btn btn-danger"><small>Supprimer l'adresse</small></button>
+                            </form>
+                        </div>
+
+
+                    </div>
+                
+
+                @endforeach
+
+
+            </div>
 
 
         </div>
+
+
     </div>
 
 
 
 
 
-<!-- FOOTER
+    <!-- FOOTER
     ============================================================= -->
     @include('footer')
 

@@ -64,7 +64,7 @@ class User extends Authenticatable
         return $this->hasMany(Adresse::class);
     }
 
-   // Relation de cardinalité 0.n (zéro à plusieurs)
+    // Relation de cardinalité 0.n (zéro à plusieurs)
     public function reservations() 
     {
         return $this->belongsToMany(Vehicule::class, 'reservations')->withPivot(['forfait_id', 'date_debut', 'date_fin']);

@@ -302,6 +302,13 @@ footer a
     font-weight: 300
 }
 
+/* TEXTE PLACEHOLDER INPUT */
+#card_mofif_infos input
+{
+    color: #696868;
+    font-size: 12px;
+}
+
 
 
 
