@@ -5,7 +5,7 @@
 
     <!-- CONTAINER-FLUID 
     ============================================================= -->
-    <div class="container-fluid">
+    <div class="container-fluid mt-5">
 
 
 
@@ -84,7 +84,7 @@
 
                                     <!-- PASSWORD OUBLIE -->
                                     @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Oublié ?') }}</a>
+                                            <a class="btn btn-link" href="{{ route('password.request') }}"><small>{{ __('Oublié ?') }}</small></a>
                                     @endif
 
                                 </div>

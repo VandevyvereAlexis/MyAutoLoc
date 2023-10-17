@@ -1,11 +1,10 @@
 /* RESET 
-=========================================================================== */
+=========================================================================== FINI */
 body
 {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5
@@ -30,24 +29,13 @@ p, small, a
 
 
 
-
-
-
-
-/* APP.BLADE 
-=========================================================================== */
-
-/* NAVBAR */ 
-#navbar 
-{
-    background: rgba(0, 0, 0, 0.104);
-    backdrop-filter: blur(10px);
-}
+/* NAVBAR.BLADE 
+=========================================================================== FINI */
 
 /* LOGO NAVBAR */ 
 #logo_navbar_app_blade 
 {
-    width: 8.8rem;
+    width: 6.5rem;
 }
 
 /* LIENS BEFORE */
@@ -60,8 +48,8 @@ p, small, a
     transform: translateX(-50%);
     width: 0%;
     height: 1px;
-    background-color: #fffcf0;
-    transition: all 0.4s ease-out;
+    background-color: #eaecf1c5;
+    transition: all 0.3s ease-out;
 }
 
 /* LIENS HOVER BEFORE */
@@ -69,6 +57,57 @@ p, small, a
 {
     width: 100%;
 }
+
+
+
+
+
+
+
+/* HOME.BLADE 
+=========================================================================== */
+#home_section_1
+{
+    width: 100%; 
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+    z-index: -1;
+}
+
+#home_section_1 h1
+{
+    font-weight: 600;
+}
+
+#home_section_1 a span:hover
+{
+    font-weight: 500 !important;
+    transition: all 0.3s;
+    background-color: rgba(240, 255, 255, 0.864);
+    color: #3d3d3d;
+    transform: scale(1.01);
+}
+
+#home_section_1 a span
+{
+    transition: all 0.3s;
+}
+
+#home_section_2 .card
+{
+    transition: all 0.3s;
+}
+
+#home_section_2 .card:hover
+{
+    transition: all 0.3s;
+    transform: scale(1.02);
+    background-color: #3d3d3d;
+    color: azure;
+}
+
+
 
 
 
@@ -85,7 +124,7 @@ p, small, a
 
 
 /* REGISTER.BLADE 
-=========================================================================== */
+=========================================================================== FINI */
 
 /* ROW FICHIER REGISTER.BLADE */
 #row_register
@@ -96,7 +135,7 @@ p, small, a
 /* TITRE */ 
 #row_register h1 {
     font-size: 3rem;
-    color: rgb(61, 61, 61);
+    color: #3d3d3d;
 }
 
 /* TEXTE PLACEHOLDER INPUT */
@@ -131,7 +170,7 @@ p, small, a
 #card_body_register
 {
     overflow-y: scroll; 
-    height: 70vh;
+    height: 48vh;
 }
 
 /* PARTIE DROITE */
@@ -157,7 +196,7 @@ p, small, a
 
 
 /* LOGIN.BLADE 
-=========================================================================== */
+=========================================================================== FINI */
 
 /* ROW FICHIER LOGIN.BLADE */
 #row_login
@@ -202,7 +241,7 @@ p, small, a
 
 
 /* EMAIL.BLADE 
-=========================================================================== */
+=========================================================================== FINI */
 
 /* ROW FICHIER LOGIN.BLADE */
 #row_email
@@ -247,7 +286,7 @@ p, small, a
 
 
 /* FOOTER.BLADE 
-=========================================================================== */
+=========================================================================== FINI */
 
 /* © 2023 - Tous droits réservés */
 footer h5
@@ -262,6 +301,14 @@ footer a
     font-weight: 300;
     font-size: 11px;
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -322,6 +369,102 @@ footer a
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* INDEX.BLADE  //  VEHICULES
+=========================================================================== FINI */
+
+#carte_index_vehicules
+{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.511);
+    transition: all 0.3s ease-out;
+}
+
+#carte_index_vehicules:hover
+{
+    transition: all 0.3s ease-out;
+    transform: scale(1.01);
+    filter: grayscale(100%);
+    box-shadow: 0px 0px 5px rgb(255, 255, 255) !important;
+}
+
+#carte_index_vehicules .rounded-circle
+{
+    width: 2rem; 
+    height: 2rem; 
+    box-shadow: -0px -0px 3px black;
+}
+
+#carte_index_vehicules h3 
+{
+    font-weight: 800;
+}
+
+#carte_index_vehicules i
+{
+    color: #f5ec00; 
+    text-shadow: 0px 0px 0.5px black;
+}
+
+#categories_index .card
+{
+    transition: all 0.3s ease-out;
+}
+
+#categories_index .card:hover
+{
+    transition: all 0.3s ease-out;
+    transform: scale(1.02);
+    background-color: #3d3d3d;
+    color: azure;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* MEDIA QUERIES 
 =========================================================================== */
 
@@ -360,6 +503,34 @@ footer a
 
 
 
+@media screen and ( max-width: 1016px ) 
+{
+    #section_show_2 {
+        flex-direction: column;
+        
+    }
+
+    #col_1_show_vehicules{
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 4rem;
+    }
+
+    #section_show_2 img{
+        width: 200% !important;
+    }
+
+    #section_show_2 .card {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        width: 100% !important;
+    }
+}
+
+
+
 /* 767 PX */
 @media screen and ( max-width: 767px ) 
 {
@@ -367,13 +538,13 @@ footer a
     ===================================*/
 
     /* Menu deroulant connexion, inscription */ 
-    #liens-navbar
+    #liens-navbarclair
     {
         padding-bottom: 15px;
     }
 
     /* Liens before */
-    #navbar #liens-navbar span::before 
+    #navbarclair #liens-navbarclair span::before 
     {
         content: none;
         position: none;
@@ -387,8 +558,39 @@ footer a
     }
 
     /* Liens hover before */
-    #navbar #liens-navbar span:hover::before 
+    #navbarclair #liens-navbarclair span:hover::before 
     {
         width: none;
     }
+    /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+    /* Menu deroulant connexion, inscription */ 
+    #liens-navbardark
+    {
+        padding-bottom: 15px;
+    }
+
+    /* Liens before */
+    #navbardark #liens-navbardark span::before 
+    {
+        content: none;
+        position: none;
+        bottom: none;
+        left: none; 
+        transform: none;
+        width: none;
+        height: none;
+        background-color: none;
+        transition: none;
+    }
+
+    /* Liens hover before */
+    #navbardark #liens-navbardark span:hover::before 
+    {
+        width: none;
+    }
+
+    #section_show_2 img{
+        width: 100% !important;
+    }
+
 }

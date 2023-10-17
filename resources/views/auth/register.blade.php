@@ -5,8 +5,7 @@
 
     <!-- CONTAINER-FLUID 
     ============================================================= -->
-    <div class="container-fluid">
-
+    <div class="container-fluid mt-5">
 
 
 
@@ -27,14 +26,14 @@
 
                 <!-- CARD 
                 ============================================================= -->
-                <div class="card col-md-10 col-sm-12 border-0 pt-1 border-secondary">
+                <div class="card col-md-10 col-sm-12 border-0">
 
 
                     <!-- CARD HEADER -->
                     <h1 class="card-header bg-transparent text-center border-0"><span class="border-bottom border-secondary border-2">{{ __('Inscription') }}</span></h1>
 
                     <!-- CARD BODY -->
-                    <div class="card-body my-2 rounded" id="card_body_register">
+                    <div class="card-body my-4" id="card_body_register">
 
 
                         <!-- FORMULAIRE INSCRIPTION 

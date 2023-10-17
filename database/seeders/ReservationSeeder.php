@@ -4,43 +4,56 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-// Importe la classe 'DB' du namespace 'Illuminate\Support\Facades'. Permet d'utiliser les fonctionnalités de la classe 'DB' sans devoir spécifier le namespace complet à chaque fois.
-use Illuminate\Support\Facades\DB;
-use App\Models\Forfait;             // Importe la classe "Forfait"
-use App\Models\Vehicule;            // Importe la classe "Vehicule"
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;  // Utilisation de la classe DB pour gérer la base de données.
+use App\Models\Forfait;             // Utilisation de la classe Forfait du modèle.
+use App\Models\Vehicule;            // Utilisation de la classe Vehicule du modèle.
+use Carbon\Carbon;                  // Utilisation de la classe Carbon pour gérer les dates et heures.
 
 class ReservationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
+    // Génère des réservations aléatoires dans la table 'reservations'.
     public function run(): void
     {
-
-        // Cette boucle "for" itère de 1 à 76 (77 exclus) pour générer des réservations.
-        for($i = 1; $i < 77; $i++)                                                 
+        // Boucle de 1 à 76.
+        for ($i = 1; $i < 77; $i++) 
         {
-            // Génère une date de début aléatoire entre aujourd'hui et 30 jours dans le futur.
-            $startDate = Carbon::now()->addDays(rand(1, 30));       
+            // Génération d'une date de début aléatoire entre aujourd'hui et 30 jours dans le futur
+            $startDate = Carbon::now()->addDays(rand(1, 30));
 
-            // Génère une date de fin aléatoire entre la date de début et 14 jours après.
-            $endDate = $startDate->copy()->addDays(rand(1, 6));     
+            // Génération d'une date de fin aléatoire entre la date de début et 6 jours dans le futur
+            $endDate = $startDate->copy()->addDays(rand(1, 6));
 
-            // Convertit les dates en formats de chaîne (si nécessaire).
-            $startDateString = $startDate->toDateTimeString();      // Format complet avec date et heure
-            $endDateString = $endDate->toDateTimeString();          // Format complet avec date et heure
+            // Extraction de l'heure de début au format "H:i:s"
+            $startTime = $startDate->format('H:i:s');
 
-            // Dans chaque itération, j'insère une nouvelle entrée dans la table 'reservations'.
+            // Extraction de l'heure de fin au format "H:i:s"
+            $endTime = $endDate->format('H:i:s');
+
+            // Détermination de "demi_journee" en fonction des heures de début et de fin
+            $demiJournee = 'avant-midi'; // Par défaut à "avant-midi"
+
+            // Détermine si la période est l'après-midi en fonction des heures de début et de fin.
+            if ($startTime >= '12:00:00' && $endTime <= '23:59:59') 
+            {
+                $demiJournee = 'après-midi';
+            }
+
+            // Insertion d'une nouvelle réservation dans la table 'reservations' avec des données aléatoires
             DB::table('reservations')->insert([
-                'vehicule_id'   => rand(1 , Vehicule::count()),       // Défini comme un ID de véhicule aléatoire entre 1 et le nombre total de véhicules enregistrés.
-                'user_id'       => $i,                               // Défini comme la valeur actuelle de $i
-                'forfait_id'    => rand(1 , Forfait::count()),       // Défini comme un ID de forfait aléatoire entre 1 et le nombre total de forfaits enregistrés.
-                'date_debut'    => $startDateString,
-                'date_fin'      => $endDateString,
+                'vehicule_id' => rand(1, Vehicule::count()),        // ID de véhicule aléatoire entre 1 et le nombre total de véhicules
+                'user_id' => $i,                                    // Utilisation de la valeur actuelle de $i comme ID d'utilisateur
+                'forfait_id' => rand(1, Forfait::count()),          // ID de forfait aléatoire entre 1 et le nombre total de forfaits
+                'date_debut' => $startDate->toDateString(),         // Formatage de la date de début
+                'date_fin' => $endDate->toDateString(),             // Formatage de la date de fin
+                'date_fin_demi_journee' => $demiJournee,            // Utilisation de la valeur déterminée pour "demi_journee"
+                'date_debut_demi_journee' => $demiJournee,          // Utilisation de la valeur déterminée pour "demi_journee"
             ]);
         }
     }
 }
+
 
 

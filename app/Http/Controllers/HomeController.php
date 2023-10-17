@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Categorie;       // Importation de class catégorie
 
 class HomeController extends Controller
 {
@@ -14,7 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $categories = Categorie::all();
+    
+        return view('home', ['categories' => $categories]);
     }
 
 
