@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Forfait;
 use App\Models\User;                            // Importation de la classe User du modèle de données de l'application. Permet d'utiliser le modèle d'utilisateur dans ce fichier.
 use App\Models\Vehicule;                        // Importaton de la classe Vehicule du modèle de données de l'application. Permet d'utiliser le modèle de véhicule dans ce fichier.
 use Illuminate\Support\Facades\Validator;       // Importaton de la classe Validator du framework Laravel. Elle sera utilisée pour effectuer des validations sur les données fournies par l'utilisateur.
@@ -143,14 +144,26 @@ class ReservationController extends Controller
 
         }
 
+        // recuperation de l'id du forfait choisi, 
+        $forfait = Forfait::find($request->forfait_id);
+
+        $vehicule = Vehicule::find($request->vehicule_id);
+
+        $date_debut = strtotime($dateDebutDemandee); // Date de début au format "YYYY-MM-DD"
+        $date_fin = strtotime($dateFinDemandee); // Date de fin au format "YYYY-MM-DD"
+        $nombre_de_jours = (($date_fin - $date_debut) / 86400) + 1; // Arrondir le résultat
+
+        $prix = $forfait->prix + $vehicule->prix * $nombre_de_jours;
+
 
         // Attache la réservation à l'utilisateur en utilisant la méthode attach() avec les détails fournis dans la requête, y compris la date, les demi-journées et le véhicule spécifié.
         $user->reservations()->attach($request->vehicule_id, [
-            'forfait_id' => $request->forfait,                          // Attache la réservation à l'utilisateur courant et au véhicule spécifié dans la requête. Inclusion également des détails de la réservation sous forme de tableau associatif.
+            'forfait_id' => $request->forfait_id,                          // Attache la réservation à l'utilisateur courant et au véhicule spécifié dans la requête. Inclusion également des détails de la réservation sous forme de tableau associatif.
             'date_debut' => $request->date_debut,                       // Attribution la date de début de la réservation à partir des données fournies dans la requête.
             'date_debut_demi_journee' => $request->demi_journee_debut,  // Attribution de la demi-journée de début de la réservation à partir des données fournies dans la requête.
             'date_fin' => $request->date_fin,                           // Attribution de la date de fin de la réservation à partir des données fournies dans la requête.
             'date_fin_demi_journee' => $request->demi_journee_fin,      // Attribution de la demi-journée de fin de la réservation à partir des données fournies dans la requête.
+            'prix' => $prix,      // Attribution de la demi-journée de fin de la réservation à partir des données fournies dans la requête.
         ]);
 
 

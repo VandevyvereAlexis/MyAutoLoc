@@ -67,7 +67,7 @@ class User extends Authenticatable
     // Relation de cardinalité 0.n (zéro à plusieurs)
     public function reservations() 
     {
-        return $this->belongsToMany(Vehicule::class, 'reservations')->withPivot(['forfait_id', 'date_debut_demi_journee', 'date_debut', 'date_fin_demi_journee', 'date_fin']);
+        return $this->belongsToMany(Vehicule::class, 'reservations')->withPivot(['forfait_id', 'date_debut_demi_journee', 'date_debut', 'date_fin_demi_journee', 'date_fin', 'prix']);
     }
 
     // Relation de cardinalité 1.1 (un à un)

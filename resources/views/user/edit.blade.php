@@ -24,9 +24,76 @@
 
 
 
-        <!-- MODIFICATIONS PASSWORD + INFORMATIONS
+        <div class="row">
+            <div class="col d-flex gap-3 justify-content-center">
+                <a href="#historique_reservation">Historique de reservation</a>
+                <a href="#Modification_password">Modification du mot de passe</a>
+                <a href="#card_mofif_infos">Modification des information personnelles</a>
+                <a href="#creation_adresse">Création adresse</a>
+                <a href="#modif_boucle_adresses">Modification des information personnelles</a>
+            </div>
+        </div>
+
+
+
+
+        <div class="row mt-5 pt-3 mx-1" id="historique_reservation">
+            <h5 class="ms-1 text-center">Historique de réservation</h5>
+            <div class="col-md-8 mx-auto border border-secondary rounded py-3" style="overflow-y: scroll; height: 400px">
+                <table class="table table-striped text-center">
+
+                    @if ($user->reservations->isEmpty())
+                        <p class="text-center">Aucune réservation n'a été trouvée.</p>
+                    @else
+                        @foreach ($user->reservations as $reservation)
+                            <thead>
+                                <tr>
+                                    <th scope="col">{{ $reservation->pivot->date_debut }}</th>
+                                    <th scope="col">{{ $reservation->marque }}</th>
+                                    <th scope="col">{{ $reservation->modele }}</th>
+                                    <th scope="col">
+                                        
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalReservation{{ $reservation->id }}">
+                                            Détails
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalReservation{{ $reservation->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Reservation du {{ $reservation->pivot->date_debut }}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <p class="fw-normal">Loueur : <span class="fw-medium">{{ $reservation->user->nom }} {{ $reservation->user->prenom }}</span></p>
+                                                        <p class="fw-normal">Véhicule : <span class="fw-medium">{{ $reservation->marque }} {{ $reservation->modele }}</span></p>
+                                                        <img class="w-100" src="{{ asset('images/' . $reservation->image) }}" alt="Image voiture">
+                                                        <p class="fw-normal mt-3">Réservation du : <span class="fw-medium">{{ date('d M. Y', strtotime($reservation->pivot->date_debut)) }}</span> {{ $reservation->pivot->date_debut_demi_journee }} <br> Jusqu'au : <span class="fw-medium">{{ date('d M. Y', strtotime($reservation->pivot->date_fin)) }}</span> {{ $reservation->pivot->date_fin_demi_journee }}</p>
+                                                        <p>Total : {{ $reservation->pivot->prix }} €</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                        @endforeach
+                    @endif
+                </table>
+            </div>
+        </div>
+
+
+
+
+        <!-- SECTION 2
         ============================================================= -->
-        <div class="row justify-content-center my-5 gap-1 pt-5">
+        <div class="row justify-content-center my-5 gap-1 pt-5" id="Modification_password">
 
             <!-- SECTION MODIF PASSWORD + MODIF INFOS -->
             <div class="col-md-5 col-sm-12 border-end mb-5">
@@ -258,9 +325,9 @@
 
 
 
-            <!-- SECTION CREATION ADRESSE + BOUCLE ADRESSES EXISTANTES
+            <!-- SECTION 3
             ============================================================= -->
-            <div class="col-md-5 col-sm-12 border-start">
+            <div class="col-md-5 col-sm-12 border-start" id="creation_adresse">
 
                 <!-- CARD -->
                 <div class="card border-secondary mx-auto p-3" style="max-width: 30rem">
@@ -336,87 +403,89 @@
 
                 <!-- BOUCLE ADRESSES EXISTANTES
                 ============================================================= -->
-                @foreach ($user->adresses as $adresse)
+                <div style="overflow-y: scroll; height: 65rem" id="modif_boucle_adresses">
+                    @foreach ($user->adresses as $adresse)
 
-                    <!-- CARD -->
-                    <div class="card mx-auto mb-4 p-3 border-secondary" style="max-width: 30rem">
+                        <!-- CARD -->
+                        <div class="card mx-auto mb-4 p-3 border-secondary" style="max-width: 30rem">
 
-                        <!-- Formulaire modif infos  -->
-                        <form method="POST" action="{{ route('adresse.update', $adresse) }}">
-                        @csrf
-                        @method('PUT')
+                            <!-- Formulaire modif infos  -->
+                            <form method="POST" action="{{ route('adresse.update', $adresse) }}">
+                            @csrf
+                            @method('PUT')
 
-                            <div class="row justify-content-center">
+                                <div class="row justify-content-center">
 
-                                <!-- AFFICHAGE ADRESSE -->
-                                <h6 class="mb-3 ms-3"><small class="border-bottom border-primary">{{$adresse->adresse}} {{$adresse->code_postal}} {{$adresse->ville}}</small></h6>
+                                    <!-- AFFICHAGE ADRESSE -->
+                                    <h6 class="mb-3 ms-3"><small class="border-bottom border-primary">{{$adresse->adresse}} {{$adresse->code_postal}} {{$adresse->ville}}</small></h6>
 
-                                <!-- VILLE -->
-                                <div class="col-12 mb-4">
-                                    <label for="ville" class="col-form-label ms-2 pb-1"><small>{{ __('Ville') }}</small></label>
-                                    <input id="ville" type="text" class="form-control border-secondary @error('ville') is-invalid @enderror" name="ville" value="{{ $adresse->ville }}" required autocomplete="ville">
+                                    <!-- VILLE -->
+                                    <div class="col-12 mb-4">
+                                        <label for="ville" class="col-form-label ms-2 pb-1"><small>{{ __('Ville') }}</small></label>
+                                        <input id="ville" type="text" class="form-control border-secondary @error('ville') is-invalid @enderror" name="ville" value="{{ $adresse->ville }}" required autocomplete="ville">
 
-                                    @error('ville')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        @error('ville')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- CODE POSTAL -->
+                                    <div class="col-12 mb-4">
+                                        <label for="code_postal" class="col-form-label ms-2 pb-1"><small>{{ __('Code postal') }}</small></label>
+                                        <input id="code_postal" type="text" class="form-control border-secondary @error('code_postal') 
+                                            is-invalid @enderror" name="code_postal" value="{{ $adresse->code_postal }}" required autocomplete="code_postal">
+
+                                        @error('code_postal')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- ADRESSE -->
+                                    <div class="col-12 mb-4">
+                                        <label for="adresse" class="col-form-label ms-2 pb-1"><small>{{ __('Adresse') }}</small></label>
+                                        <input id="adresse" type="text" class="form-control border-secondary @error('adresse') is-invalid @enderror" name="adresse" value="{{ $adresse->adresse }}" required autocomplete="adresse">
+
+                                        @error('adresse')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- BOUTON "MODIFIER" --> 
+                                    <div class="col-12 mb-3 border-bottom border-secondary pb-4">
+                                        <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+                                        <button type="submit" class="btn btn-primary col-12"><small>{{ __('Modifier') }}</small></button>
+                                    </div>
+
+
                                 </div>
 
-                                <!-- CODE POSTAL -->
-                                <div class="col-12 mb-4">
-                                    <label for="code_postal" class="col-form-label ms-2 pb-1"><small>{{ __('Code postal') }}</small></label>
-                                    <input id="code_postal" type="text" class="form-control border-secondary @error('code_postal') 
-                                        is-invalid @enderror" name="code_postal" value="{{ $adresse->code_postal }}" required autocomplete="code_postal">
 
-                                    @error('code_postal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <!-- ADRESSE -->
-                                <div class="col-12 mb-4">
-                                    <label for="adresse" class="col-form-label ms-2 pb-1"><small>{{ __('Adresse') }}</small></label>
-                                    <input id="adresse" type="text" class="form-control border-secondary @error('adresse') is-invalid @enderror" name="adresse" value="{{ $adresse->adresse }}" required autocomplete="adresse">
-
-                                    @error('adresse')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <!-- BOUTON "MODIFIER" --> 
-                                <div class="col-12 mb-3 border-bottom border-secondary pb-4">
-                                    <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
-                                    <button type="submit" class="btn btn-primary col-12"><small>{{ __('Modifier') }}</small></button>
-                                </div>
+                            </form>
 
 
+                            <!-- BOUTON SUPPRESSION COMPTE _
+                            ============================================================= -->
+                            <div class="col-12 text-center">
+                                <p class="mb-2">Suppression adresse</p>
+                                <form action="{{ route('adresse.destroy', $adresse) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><small>Supprimer l'adresse</small></button>
+                                </form>
                             </div>
 
 
-                        </form>
-
-
-                        <!-- BOUTON SUPPRESSION COMPTE _
-                        ============================================================= -->
-                        <div class="col-12 text-center">
-                            <p class="mb-2">Suppression adresse</p>
-                            <form action="{{ route('adresse.destroy', $adresse) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><small>Supprimer l'adresse</small></button>
-                            </form>
                         </div>
 
 
-                    </div>
-
-
-                @endforeach
+                    @endforeach
+                </div>
 
 
             </div>

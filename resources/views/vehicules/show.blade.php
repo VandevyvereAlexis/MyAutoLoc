@@ -112,14 +112,14 @@
 
                         <!-- Forfaits -->
                         <label class="text-center mt-1" for="">Forfait</label>
-                        <select class="col-5 mb-4 p-2 mx-auto text-center" id="demi_journee_fin" name="forfait">
+                        <select class="col-5 mb-4 p-2 mx-auto text-center" id="demi_journee_fin" name="forfait_id">
                             @foreach ($forfaits as $forfait)
                                 <option value="{{ $forfait->id }}">{{ $forfait->kilometres }}km {{ $forfait->prix }}€</option>
                             @endforeach
                         </select>
 
                         <!-- Affichage prix location véhicule -->
-                        <p class="text-center mb-4">{{ $vehicule->prix }}€ <small class="border-bottom border-secondary">par jour</small></p>
+                        <p class="text-center mb-4"><small class="fw-normal">La tarification est de <span class="fw-medium border-bottom border-secondary">{{ $vehicule->prix }} €</span> par jour, quelle que soit l'heure de la journée.</small></p>
 
                         @guest
                             <p class="fw-light border-top border-bottom border-secondary">Pour réserver un véhicule, vous devez être connecté ou inscrit. Si vous avez déjà un compte, veuillez vous connecter. Sinon, veuillez vous inscrire.<a class="text-decoration-none" href="{{ route('register') }}"> Inscription</a> | <a class="text-decoration-none" href="{{ route('login') }}">Connexion</a></p>

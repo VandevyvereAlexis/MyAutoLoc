@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;                        // Importer la classe "User"
+use App\Models\User;                        // Importer la classe "User"                      // Importer la classe "User"
+use App\Models\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -26,11 +27,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user/edit', ['user' => $user]);    // Renvoie la vue "user/edit" avec les données de l'utilisateur.
-
-        // Affiche le formulaire de modification de l'utilisateur spécifié en paramètre et renvoie la vue correspondante.
+        // Chargez les véhicules associés à l'utilisateur
+        $user->load('reservations');
+        $vehicules = Vehicule::all(); // Vous pouvez adapter cette requête en fonction de vos besoins
+    
+        return view('user.edit', ['user' => $user, 'vehicules' => $vehicules]);
     }
-
 
 
     /**

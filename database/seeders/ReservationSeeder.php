@@ -44,6 +44,7 @@ class ReservationSeeder extends Seeder
             // Insertion d'une nouvelle réservation dans la table 'reservations' avec des données aléatoires
             DB::table('reservations')->insert([
                 'vehicule_id' => rand(1, Vehicule::count()),        // ID de véhicule aléatoire entre 1 et le nombre total de véhicules
+                'prix' => fake()->randomFloat(2, 40, 200),        // ID de véhicule aléatoire entre 1 et le nombre total de véhicules
                 'user_id' => $i,                                    // Utilisation de la valeur actuelle de $i comme ID d'utilisateur
                 'forfait_id' => rand(1, Forfait::count()),          // ID de forfait aléatoire entre 1 et le nombre total de forfaits
                 'date_debut' => $startDate->toDateString(),         // Formatage de la date de début

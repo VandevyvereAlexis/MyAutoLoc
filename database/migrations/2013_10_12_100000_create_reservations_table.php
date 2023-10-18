@@ -21,6 +21,8 @@ return new class extends Migration
 
             $table->enum('date_fin_demi_journee', ['avant-midi', 'après-midi']);        // colonne "date_fin_demi_journee" de type enum
 
+            $table->float('prix');        // colonne "date_fin_demi_journee" de type enum
+
             $table->timestamps();                                                       // colonne "created_at" et "updated_at" type timestamp pour timestamps de création et mise à jour
 
             $table->foreignId('vehicule_id')->constrained();                            // colonne "vehicule_id" type clé étrangère liée à table "vehicules"
