@@ -2,42 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;                        // Importer la classe "User"                      // Importer la classe "User"
-use App\Models\Vehicule;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;                            // Importe la classe "User" depuis le modèle "User".
+use App\Models\Vehicule;                        // Importe la classe "Vehicule" depuis le modèle "Vehicule".
+use Illuminate\Http\Request;                    // Importe la classe Request pour gérer les requêtes HTTP.
+use Illuminate\Support\Facades\Auth;            // Importe la classe Auth pour gérer l'authentification.
+use Illuminate\Validation\Rules\Password;       // Importe des règles de validation pour les mots de passe.
+use Illuminate\Support\Facades\Hash;            // Importe la classe Hash pour gérer le hachage.
+
+
+
+
 
 class UserController extends Controller
 {
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
+    // Méthode 'edit' utilisée pour afficher la page d'édition du profil de l'utilisateur.
     public function edit(User $user)
     {
-        // Chargez les véhicules associés à l'utilisateur
-        $user->load('reservations');
-        $vehicules = Vehicule::all(); // Vous pouvez adapter cette requête en fonction de vos besoins
-    
-        return view('user.edit', ['user' => $user, 'vehicules' => $vehicules]);
+        // Charge les véhicules associés à l'utilisateur en utilisant la relation "reservations" du modèle "User".
+        $user->load('reservations', 'vehicules');
+
+        // Rend la vue 'user.edit' en passant l'utilisateur et les véhicules à afficher.
+        return view('user.edit', ['user' => $user]);
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
+
+
+
     public function update(Request $request, User $user)
     {
         // Validatiion des données entrées par l'utilisateur
@@ -76,9 +72,8 @@ class UserController extends Controller
 
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+
     public function destroy(User $user)
     {
         // Vérifie si l'utilisateur connecté est l'utilisateur à supprimer
@@ -98,33 +93,33 @@ class UserController extends Controller
 
 
 
-    // METHODE DE MISE A JOUR DU MOT DE PASSE
+
+
     public function updatePassword(Request $request, User $user)
     {
-
         // Validation des champs du formulaire
         $request->validate([
 
-            'actuel_password' => 'required',
-            'nouveau_password' => [
-
-                'required', 
-                'confirmed',
-                Password::min(8)    // Longueur minimale de 8 caractères
-                    ->mixedCase()   // Au moins une lettre minuscule et une lettre majuscule
-                    ->letters()     // Au moins une lettre
-                    ->numbers()     // Au moins un chiffre
-                    ->symbols()     // Au moins un caractère spécial
+            'actuel_password' => 'required',        // Champ pour le mot de passe actuel (requis).
+            'nouveau_password' => [                 // Champ pour le nouveau mot de passe.
+                    'required',                     // Requis.
+                    'confirmed',                    // Doit être confirmé.
+                Password::min(8)                    // Longueur minimale de 8 caractères.
+                    ->mixedCase()                   // Au moins une lettre minuscule et une lettre majuscule
+                    ->letters()                     // Au moins une lettre
+                    ->numbers()                     // Au moins un chiffre
+                    ->symbols()                     // Au moins un caractère spécial
 
                 ]
-
         ]);
 
+
         // Récupération de l'utilisateur actuel
-        $user = User::find(Auth::user()->id);               // L'utilisateur connecté
-        $actuelPassword = $request->actuel_password;        // Mot de passe actuel saisi par l'utilisateur
-        $actuelPasswordHashed = $user->password;            // Mot de passe actuel haché dans la base de données
-        $nouveau_password = $request->nouveau_password;     // Nouveau mot de passe saisi par l'utilisateur
+        $user = User::find(Auth::user()->id);                   // L'utilisateur connecté
+        $actuelPassword = $request->actuel_password;            // Mot de passe actuel saisi par l'utilisateur
+        $actuelPasswordHashed = $user->password;                // Mot de passe actuel haché dans la base de données
+        $nouveau_password = $request->nouveau_password;         // Nouveau mot de passe saisi par l'utilisateur
+
 
         // Vérification si le mot de passe actuel saisi correspond au mot de passe haché dans la base de données
         if (Hash::check($actuelPassword, $actuelPasswordHashed)) 
@@ -146,6 +141,10 @@ class UserController extends Controller
         } else {
             return redirect()->back()->withErrors(['password_error', 'mot de passe actuel saisie incorrect']);
         } 
-
     }
+
+
+
+
+
 }

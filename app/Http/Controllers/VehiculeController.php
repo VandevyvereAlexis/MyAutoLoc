@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Forfait;
+use App\Models\User;
 use App\Models\Vehicule;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class VehiculeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+
+
+
+
     // Affiche la liste des véhicules avec leurs adresses associées.
     public function index()
     {
-         // Récupérez les véhicules avec leurs adresses associées
+        // Récupérez les véhicules avec leurs adresses associées
         $vehicules = Vehicule::with('adresse')->get();
 
         // Récupérez toutes les catégories
@@ -27,25 +29,61 @@ class VehiculeController extends Controller
         return view('vehicules/index', ['vehicules' => $vehicules, 'categories' => $categories]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+
+
+
     public function create()
     {
-        //
+        // L'utilisateur connecté
+        $user = User::find(Auth::user()->id);       
+        
+        $user->load('adresses');                //EAGER LOADING
+
+        $categories = Categorie::all();
+
+        // Affiche un formulaire pour créer un nouveau véhicule
+        return view('vehicules.create', compact('user', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
+
+
     public function store(Request $request)
     {
-        //
+        // Validez les données du formulaire
+        $validatedData = $request->validate([
+            'marque'                => 'required',
+            'modele'                => 'required',
+            'energie'               => 'required',
+            'image'                 => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'immatriculation'       => 'required|unique:vehicules',
+            'annee'                 => 'required|integer',
+            'kilometrage'           => 'required|numeric',
+            'description'           => 'required',
+            'prix'                  => 'required|numeric',
+            'nombre_places'         => 'required|integer',
+            'date_controle'         => 'required|date',
+        ]);
+
+        // Ajoutez l'ID de l'utilisateur connecté au tableau des données validées
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['adresse_id'] = $request->adresse_id;
+        $validatedData['categorie_id'] = $request->categorie_id;
+        $validatedData['image'] = uploadImage($request['image']);        // Image de profil, soit téléchargée via la fonction 'uploadImage' si présente, sinon image par défaut 'user.png'.  
+
+        // Enregistrez le nouveau véhicule dans la base de données
+        Vehicule::create($validatedData);
+
+        // Redirigez l'utilisateur vers la page de liste des véhicules
+        return redirect()->route('vehicules.index')->with('message', 'L\'annonce a bien été enregistrée');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
+
+
+
     // Affiche la vue 'vehicules.show' avec les données du véhicule.
     public function show(Vehicule $vehicule)
     {
@@ -58,27 +96,49 @@ class VehiculeController extends Controller
         return view('vehicules.show', compact('vehicule', 'avis', 'forfaits'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+
+
+
+    public function update(Request $request, Vehicule $vehicule)
     {
-        //
+        // Validez les données du formulaire
+        $validatedData = $request->validate([
+            'marque'                => 'required',
+            'modele'                => 'required',
+            'energie'               => 'required',
+            'image'                 => 'sometimes|image', 
+            'immatriculation'       => 'required|unique:vehicules,immatriculation,' . $vehicule->id,
+            'annee'                 => 'required|integer',
+            'kilometrage'           => 'required|numeric',
+            'description'           => 'required',
+            'prix'                  => 'required|numeric',
+            'nombre_places'         => 'required|integer',
+            'date_controle'         => 'required|date',
+        ]);
+
+        // Mettez à jour les informations du véhicule
+        $vehicule->update($validatedData);
+
+        // Redirigez l'utilisateur vers la page de détails du véhicule
+        return redirect()->route('vehicules.show', $vehicule->id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+
+
+
+    public function destroy(Vehicule $vehicule)
     {
-        //
+        // Supprimez le véhicule de la base de données
+        $vehicule->delete();
+
+        // Redirigez l'utilisateur vers la page de liste des véhicules ou une autre page appropriée
+        return back()->with('message', 'Votre annonce à bien été supprimé');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
+
+
+
 }

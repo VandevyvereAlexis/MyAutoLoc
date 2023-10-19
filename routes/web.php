@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
-use App\Http\Controllers\ReservationController;
 
 
 /*
@@ -39,7 +39,7 @@ Route::resource('/user', App\Http\Controllers\UserController::class)->except('in
 
 
 // Route de ressources pour gérer les adresses, à l'exception des actions index, create et edit.
-Route::resource('/adresse', App\Http\Controllers\AdresseController::class)->except('index', 'create', 'edit');
+Route::resource('/adresse', App\Http\Controllers\AdresseController::class)->except('index', 'create', 'edit', 'show');
 
 
 // Route pour mettre à jour le mot de passe d'un utilisateur avec UserController@updatePassword.
@@ -54,11 +54,16 @@ Route::resource('/vehicules', VehiculeController::class);
 Route::get('/vehicules/{vehicule}', [VehiculeController::class, 'show'])->name('vehicules.show');
 
 
-
+// Route pour afficher une catégorie spécifique en utilisant son identifiant
 Route::get('/categorie/{categorie}', [CategorieController::class, 'show'])->name('categories.show');
 
 
+// Route pour gérer les opérations CRUD (Create, Read, Update, Delete) pour les réservations
 Route::resource('/reservations', App\Http\Controllers\ReservationController::class);
+
+
+// Route pour accéder à la page d'administration
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');//->middleware('admin');
 
 
 

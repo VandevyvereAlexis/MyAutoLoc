@@ -8,12 +8,16 @@ use App\Models\Adresse;                 // Cette ligne importe la classe Adresse
 use Illuminate\Support\Facades\Auth;    // Cette ligne importe la classe Auth du framework Laravel pour gérer l'authentification.
 
 
+
+
+
 // Cette ligne déclare la classe AdresseController qui hérite de la classe Controller.
 class AdresseController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
+
+
 
     // Cette méthode est utilisée pour traiter la soumission du formulaire de création d'une adresse.
     public function store(Request $request)
@@ -44,22 +48,8 @@ class AdresseController extends Controller
 
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        // Cette méthode est destinée à afficher les détails d'une adresse spécifique,
-    }
 
-
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-
-     // Cette méthode est utilisée pour mettre à jour une adresse existante.
+    // Cette méthode est utilisée pour mettre à jour une adresse existante.
     public function update(Request $request, Adresse $adresse)
     {
         // Cette partie valide les données du formulaire d'édition en spécifiant des règles pour chaque champ.
@@ -85,9 +75,6 @@ class AdresseController extends Controller
 
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
 
     // Cette méthode est utilisée pour supprimer une adresse existante.
     public function destroy(string $id)
@@ -101,4 +88,9 @@ class AdresseController extends Controller
         // Redirige l'utilisateur vers la page d'édition de l'utilisateur actuellement authentifié avec un message de confirmation de suppression.
         return redirect()->route('user.edit', Auth::user())->with('message', 'L\'adresse a été supprimée avec succès');
     }
+
+
+
+
+
 }

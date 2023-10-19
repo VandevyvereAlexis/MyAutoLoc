@@ -43,6 +43,8 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 
+
+
         // Validation des données de base
         $validator = Validator::make($request->all(), [
             'date_debut'            => 'required|date',                             // Verification que 'date_debut' est requis et est une date valide.

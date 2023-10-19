@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->timestamps();                                   // colonne "created_at" et "updated_at" type timestamp pour timestamps de création et mise à jour
 
-            $table->foreignId('vehicule_id')->constrained();        // colonne "vehicule_id" type clé étrangère liée à table "vehicule"
+            $table->foreignId('vehicule_id')->constrained()->onDelete('cascade');        // colonne "vehicule_id" type clé étrangère liée à table "vehicule"
 
             $table->foreignId('user_id')->constrained();            // colonne "user_id" type clé étrangère liée à table "user"
         });

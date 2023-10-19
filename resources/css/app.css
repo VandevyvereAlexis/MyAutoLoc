@@ -339,12 +339,12 @@ footer a
     height: 9rem;
 }
 
-#row_2_edit_user
+#section_1_edit_user
 {
     background-color: #eaecf1c5
 }
 
-#row_2_edit_user h1 
+#section_1_edit_user h1 
 {
     font-weight: 300
 }
@@ -357,6 +357,29 @@ footer a
 }
 
 
+#section_2_edit_user a
+{
+    transition: all 0.3s;
+}
+
+#section_2_edit_user a:hover
+{
+    transition: all 0.3s;
+    transform: scale(1.02);
+    background-color: #3d3d3d;
+    color: azure !important;
+}
+
+#section_3_edit_user .col-md-8
+{
+    overflow-y: scroll; 
+    height: 400px;
+}
+
+#section_4_edit_user .card
+{
+    max-width: 30rem;
+}
 
 
 

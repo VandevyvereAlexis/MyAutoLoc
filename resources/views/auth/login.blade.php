@@ -3,47 +3,40 @@
 @section('content')
 
 
-    <!-- CONTAINER-FLUID 
-    ============================================================= -->
+
+
+
     <div class="container-fluid mt-5">
-
-
-
-
-
-        <!-- MESSAGES ALERTE SUCCESS/DANGER
-        ============================================================= -->
-        @include('messages')
-
-
-
-
-
-        <!-- GAUCHE ( FORMULAIRE INSCRIPTION )
-        ============================================================= -->
         <div class="row align-items-center justify-content-center" id="row_login">
+
+
+
+
+
+            <!-- SECTION 1 : GAUCHE CARTE "FORMULAIRE"
+            ============================================================= -->
             <div class="col-md-6 col-sm-11 d-flex justify-content-center" id="left_login">
-
-
-                <!-- CARD 
-                ============================================================= -->
                 <div class="card col-md-10 col-sm-12 border-0 border-secondary">
 
 
                     <!-- CARD HEADER -->
                     <h1 class="card-header bg-transparent text-center border-0"><span class="border-bottom border-secondary border-2">{{ __('Connexion') }}</span></h1>
 
-                    <!-- CARD BODY -->
+
+                    <!-- MESSAGES ALERTE SUCCESS/DANGER -->
+                    <div class="row col-md-9 mx-auto mt-4">
+                        <div class="col">
+                            @include('messages')
+                        </div>
+                    </div>
+
+
+                    <!-- FORMULAIRE CONNEXION DANS CARD BODY-->
                     <div class="card-body my-2 rounded" id="card_body_login">
-
-
-                        <!-- FORMULAIRE INSCRIPTION 
-                        ============================================================= -->
                         <form method="POST" action="{{ route('login') }}">
-                            @csrf
+                        @csrf
 
-
-                            <!-- ( ADRESSE E-MAIL - MOT DE PASSE ) -->
+                            <!-- E-MAIL - PASSWORD - CHECKBOX / PASSWORD OUBLIE - BOUTON CONNEXION - LIEN INSCRIPTION -->
                             <div class="row justify-content-center">
 
 
@@ -60,7 +53,7 @@
                                 </div>
 
 
-                                <!-- MOT DE PASSE -->
+                                <!-- PASSWORD -->
                                 <div class="col-11 mb-5" style="width: 40rem">
                                     <label for="password" class="col-form-label ms-2 pb-1"><small>{{ __('_Mot de passe_') }}</small></label>
                                     <input id="password" type="password" class="form-control border-secondary p-3 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Mot de passe...">
@@ -106,27 +99,27 @@
 
 
                         </form>
-
-
                     </div>
 
 
                 </div>
-
-
             </div>
 
 
-            <!-- DROITE (IMAGE)
+
+
+
+            <!-- SECTION 2 : DROITE IMAGE
             ============================================================= -->
             <div class="col-md-6 border-right p-0" id="right_login">
                 <img class="py-2 pe-2" src="./images/fond.jpg" alt="Land-Rover">
             </div>
 
 
+
+
+
         </div>
-
-
     </div>
 
 

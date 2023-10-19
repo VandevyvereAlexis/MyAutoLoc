@@ -3,6 +3,9 @@
 @section('content')
 
 
+
+
+
     <!-- MENTIONS LEGALES
     ===================================================================================== -->
     <div class="container-fluid py-5">

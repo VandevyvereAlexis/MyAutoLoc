@@ -13,23 +13,23 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) 
         {
-            $table->date('date_debut');                                                 // colonne "date_debut" type date
+            $table->date('date_debut');                                                 // Colonne "date_debut" de type date
 
-            $table->enum('date_debut_demi_journee', ['avant-midi', 'après-midi']);      // colonne "date_debut_demi_journee" de type enum
+            $table->enum('date_debut_demi_journee', ['avant-midi', 'après-midi']);      // Colonne "date_debut_demi_journee" de type enum avec deux options possibles
 
-            $table->date('date_fin');                                                   // colonne "date_fin" type date
+            $table->date('date_fin');                                                   // Colonne "date_fin" de type date
 
-            $table->enum('date_fin_demi_journee', ['avant-midi', 'après-midi']);        // colonne "date_fin_demi_journee" de type enum
+            $table->enum('date_fin_demi_journee', ['avant-midi', 'après-midi']);        // Colonne "date_fin_demi_journee" de type enum avec deux options possibles
 
-            $table->float('prix');        // colonne "date_fin_demi_journee" de type enum
+            $table->float('prix');                                                      // Colonne "prix" de type float pour stocker des valeurs décimales
 
-            $table->timestamps();                                                       // colonne "created_at" et "updated_at" type timestamp pour timestamps de création et mise à jour
+            $table->timestamps();                                                       // Colonnes "created_at" et "updated_at" de type timestamp pour gérer les horodatages de création et de mise à jour
 
-            $table->foreignId('vehicule_id')->constrained();                            // colonne "vehicule_id" type clé étrangère liée à table "vehicules"
+            $table->foreignId('vehicule_id')->constrained()->onDelete('cascade');                            // Colonne "vehicule_id" de type clé étrangère liée à la table "vehicules"
 
-            $table->foreignId('user_id')->constrained();                                // colonne "user_id" type clé étrangère liée à table "users"
+            $table->foreignId('user_id')->constrained();                                // Colonne "user_id" de type clé étrangère liée à la table "users"
 
-            $table->foreignId('forfait_id')->constrained();                             // colonne "forfait_id" type clé étrangère liée à table "forfaits"
+            $table->foreignId('forfait_id')->constrained();                             // Colonne "forfait_id" de type clé étrangère liée à la table "forfaits"
         });
     }
 

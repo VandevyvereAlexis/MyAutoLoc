@@ -56,7 +56,7 @@
                         <div class="navbar-nav gap-2 d-flex align-items-center" id="liens-navbar">
 
                             <a class="nav-link liste position-relative py-0 text-center" href="{{ route('vehicules.index') }}">
-                                <span>Véhicules</span>
+                                <span>Annonces</span>
                             </a>
 
                             @guest
@@ -75,7 +75,13 @@
                                 @endif
                             @else
 
-                                <!-- NAVBAR DEROULER 
+
+                                <a class="nav-link liste position-relative py-0 text-center" href="{{ route('vehicules.create') }}">
+                                    <span>Déposez une annonce</span>
+                                </a>
+
+
+                                <!-- DROPDOWN
                                 ==================================================================-->
                                 <div class="nav-item dropdown">
 
@@ -87,7 +93,14 @@
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
                                         <!-- LIEN VERS "MON COMPTE" -->
-                                        <a class="dropdown-item" href="{{ route('user.edit', $user = Auth::user() )}}">Mon compte</a>
+                                        <a class="dropdown-item" href="{{ route('user.edit', $user = Auth::user() )}}">Mon compte / mes annonces</a>
+
+                                        <!-- LIEN VERS "BACKOFFICE" -->
+                                        @if (Auth::user()->role_id == 2)
+                                            <a class="dropdown-item" href="{{ route('admin') }}">
+                                                Back-office
+                                            </a>
+                                        @endif
 
                                         <!-- LIEN DECONNEXION -->
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Déconnexion') }}</a>

@@ -6,12 +6,19 @@
 
 
 
-    @include('messagehome')
-
-
-
-
     <div class="container-fluid p-0">
+
+
+
+
+
+        <!-- MESSAGES ALERTE SUCCESS/DANGER
+        ============================================================= -->
+        <div class="row mt-3">
+            <div class="col">
+                @include('messagehome')
+            </div>
+        </div>
 
 
 
@@ -22,7 +29,7 @@
         <div class="row vh-100 m-0 align-items-start rounded-bottom" style="background-image: url('/images/fond_9.jpg');" id="home_section_1">
 
             <!-- Titre -->
-            <h1 class="text-light text-center mt-5 pt-5 mx-auto display-2 lh-base"><span class="border-bottom rounded">Explorez le monde à votre rythme</span></h1>
+            <h1 class="text-light text-center mt-5 pt-4 mx-auto display-2 lh-base"><span class="border-bottom rounded">Explorez le monde à votre rythme</span></h1>
             <!-- Lien vers catégories -->
             <a class="text-light text-center text-decoration-none mt-auto mx-auto mb-5" href="#home_section_2"><span class="rounded border fw-lighter py-3 px-5 fs-4">Découvrir les catégories</span></a>
 
@@ -36,7 +43,7 @@
         ========================================================== -->
         <div class="row mx-0 py-4" id="home_section_2">
 
-            <!-- Boucle quyi affiche les catégories --> 
+            <!-- Boucle qui affiche les catégories --> 
             @foreach ($categories as $categorie)
                 <div class="col-md-3 mx-auto">
 

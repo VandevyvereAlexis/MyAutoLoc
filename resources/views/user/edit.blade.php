@@ -3,106 +3,133 @@
 @section('content')
 
 
-    <!-- CONTAINER-FLUID 
-    ============================================================= -->
-    <div class="container-fluid mt-5 pt-3" style="min-height: 100vh">
 
 
-        <!-- BLOC TITRE
+
+    <div class="container-fluid mt-5 pt-3">
+
+
+
+
+
+        <!-- SECTION 1 ITTRE PAGE
         ============================================================= -->
-        <div class="row py-2 border-top border-secondary rounded-bottom" id="row_2_edit_user">
+        <div class="row py-2 border-top border-secondary rounded-bottom" id="section_1_edit_user">
             <h1 class="text-center">Mon compte</h1>
         </div>
 
 
 
 
+
         <!-- MESSAGES ALERTE SUCCESS/DANGER
         ============================================================= -->
-        @include('messages')
-
-
-
-
-        <div class="row">
-            <div class="col d-flex gap-3 justify-content-center">
-                <a href="#historique_reservation">Historique de reservation</a>
-                <a href="#Modification_password">Modification du mot de passe</a>
-                <a href="#card_mofif_infos">Modification des information personnelles</a>
-                <a href="#creation_adresse">Création adresse</a>
-                <a href="#modif_boucle_adresses">Modification des information personnelles</a>
+        <div class="row mt-2">
+            <div class="col">
+                @include('messages')
             </div>
         </div>
 
 
 
 
-        <div class="row mt-5 pt-3 mx-1" id="historique_reservation">
+
+        <!-- SECTION 2 LIENS PAGE
+        ============================================================= -->
+        <div class="row mt-3" id="section_2_edit_user">
+            <div class="col d-flex gap-3 justify-content-center">
+                <a class="border py-3 px-2 text-decoration-none text-dark border-secondary rounded" href="#section_5_edit_user">Mes véhicules</a>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- SECTION 3 HISTORIQUE DE RESERVATION
+        ============================================================= -->
+        <div class="row mt-5 pt-3 mx-1" id="section_3_edit_user">
+
+            <!-- TITRE -->
             <h5 class="ms-1 text-center">Historique de réservation</h5>
-            <div class="col-md-8 mx-auto border border-secondary rounded py-3" style="overflow-y: scroll; height: 400px">
+
+            <!-- TABLE -->
+            <div class="col-md-8 mx-auto border border-secondary rounded py-3">
                 <table class="table table-striped text-center">
 
+                    <!-- SI AUCUNE RESERVATION -->
                     @if ($user->reservations->isEmpty())
                         <p class="text-center">Aucune réservation n'a été trouvée.</p>
+
+                    <!-- SINON BOUCLE SUR RESERVATIONS PASSEES-->
                     @else
                         @foreach ($user->reservations as $reservation)
+
                             <thead>
                                 <tr>
                                     <th scope="col">{{ $reservation->pivot->date_debut }}</th>
                                     <th scope="col">{{ $reservation->marque }}</th>
                                     <th scope="col">{{ $reservation->modele }}</th>
+
+                                    <!-- MODAL -->
                                     <th scope="col">
-                                        
-                                        <!-- Button trigger modal -->
+
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalReservation{{ $reservation->id }}">
                                             Détails
                                         </button>
                                         
-                                        <!-- Modal -->
                                         <div class="modal fade" id="modalReservation{{ $reservation->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
+
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Reservation du {{ $reservation->pivot->date_debut }}</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
+
                                                     <div class="modal-body text-start">
-                                                        <p class="fw-normal">Loueur : <span class="fw-medium">{{ $reservation->user->nom }} {{ $reservation->user->prenom }}</span></p>
+                                                        <p class="fw-normal mb-1">Loueur : <span class="fw-medium">{{ $reservation->user->nom }} {{ $reservation->user->prenom }}</span></p>
                                                         <p class="fw-normal">Véhicule : <span class="fw-medium">{{ $reservation->marque }} {{ $reservation->modele }}</span></p>
-                                                        <img class="w-100" src="{{ asset('images/' . $reservation->image) }}" alt="Image voiture">
+                                                        <img class="w-100 rounded" src="{{ asset('images/' . $reservation->image) }}" alt="Image voiture">
                                                         <p class="fw-normal mt-3">Réservation du : <span class="fw-medium">{{ date('d M. Y', strtotime($reservation->pivot->date_debut)) }}</span> {{ $reservation->pivot->date_debut_demi_journee }} <br> Jusqu'au : <span class="fw-medium">{{ date('d M. Y', strtotime($reservation->pivot->date_fin)) }}</span> {{ $reservation->pivot->date_fin_demi_journee }}</p>
-                                                        <p>Total : {{ $reservation->pivot->prix }} €</p>
+                                                        <p class="fw-normal">Total : <span class="fw-medium">{{ $reservation->pivot->prix }} €</span></p>
                                                     </div>
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
+
                                     </th>
                                 </tr>
                             </thead>
+
                         @endforeach
                     @endif
+
+
                 </table>
             </div>
+
+
         </div>
 
 
 
 
-        <!-- SECTION 2
-        ============================================================= -->
-        <div class="row justify-content-center my-5 gap-1 pt-5" id="Modification_password">
 
-            <!-- SECTION MODIF PASSWORD + MODIF INFOS -->
+        <!-- SECTION 4 MODIF PASSWORD - MODIF INFOS PERSO - 
+        ============================================================= -->
+        <div class="row justify-content-center my-5 gap-1 pt-5" id="section_4_edit_user">
             <div class="col-md-5 col-sm-12 border-end mb-5">
 
 
-                <!-- CARD -->
-                <div class="card border-secondary mx-auto mb-5 p-3" style="max-width: 30rem" id="card_mofif_infos">
 
-                    <!-- FORMULAIRE MODIF PASSWORD -->
+                <!-- CARD FORMULAIRE PASSWORD -->
+                <div class="card border-secondary mx-auto mb-5 p-3">
                     <form method="POST" action="{{ route('updatepassword', $user) }}">
                     @csrf
                     @method('PUT')
@@ -152,7 +179,6 @@
                             </div>
 
                         </div>
-
                     </form>
 
 
@@ -162,10 +188,8 @@
 
 
 
-                <!-- CARD -->
-                <div class="card border-secondary mx-auto p-3" style="max-width: 30rem" id="card_mofif_infos">
-
-                    <!-- FORMULAIRE MODIF INFOS -->
+                <!-- CARD FORMULAIRE MODIF INFOS PERSO -->
+                <div class="card border-secondary mx-auto p-3">
                     <form method="POST" action="{{ route('user.update', $user) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -294,15 +318,13 @@
 
 
                         </div>
-
-
                     </form>
 
 
-                    <!-- BOUTON SUPPRESSION COMPTE _
-                    ============================================================= -->
+                    <!-- BOUTON SUPPRESSION COMPTE  -->
                     <div class="col-12 text-center mt-3">
                         <p class="mb-2">Suppression du compte</p>
+
                         <form method="POST" action="{{ route('user.destroy', $user) }}">
                         @csrf
                         @method("delete")
@@ -320,19 +342,11 @@
 
 
 
+            <!-- CREATION ADRESSE - BOUCLE ADRESSES EXISTANTE -->
+            <div class="col-md-5 col-sm-12 border-start">
 
 
-
-
-
-            <!-- SECTION 3
-            ============================================================= -->
-            <div class="col-md-5 col-sm-12 border-start" id="creation_adresse">
-
-                <!-- CARD -->
-                <div class="card border-secondary mx-auto p-3" style="max-width: 30rem">
-
-                    <!-- FORMULAIRE CREATION ADRESSE -->
+                <div class="card border-secondary mx-auto p-3">
                     <form method="POST" action="{{ route('adresse.store') }}">
                     @csrf
 
@@ -384,8 +398,6 @@
                         </div>
 
                     </form>
-
-
                 </div>
 
 
@@ -393,7 +405,7 @@
 
 
                 <!-- BLOC TEXT "ADRESSES EXISTANTES" -->
-                <div class="row mx-auto border-top border-secondary mt-5 mb-4" style="max-width: 30rem" id="row_2_edit_user">
+                <div class="row mx-auto border-top border-secondary mt-5 mb-4" style="max-width: 30rem">
                     <h5 class="text-center p-2"><span>Adresses existantes</span></h5>
                 </div>
 
@@ -403,13 +415,11 @@
 
                 <!-- BOUCLE ADRESSES EXISTANTES
                 ============================================================= -->
-                <div style="overflow-y: scroll; height: 65rem" id="modif_boucle_adresses">
+                <div style="overflow-y: scroll; height: 35rem">
                     @foreach ($user->adresses as $adresse)
 
-                        <!-- CARD -->
+                        <!-- CARD MODIF ADRESSE-->
                         <div class="card mx-auto mb-4 p-3 border-secondary" style="max-width: 30rem">
-
-                            <!-- Formulaire modif infos  -->
                             <form method="POST" action="{{ route('adresse.update', $adresse) }}">
                             @csrf
                             @method('PUT')
@@ -464,8 +474,6 @@
 
 
                                 </div>
-
-
                             </form>
 
 
@@ -495,6 +503,50 @@
 
 
     </div>
+
+
+
+
+
+
+
+    <!-- SECTION 5
+    ============================================================= -->
+    <div class="container" id="section_5_edit_user">
+        <div class="row col-md-10 mx-auto">
+
+            <h5 class="text-center fs-2 my-5"><span class="border-bottom border-secondary">Mes vehicules</span></h5>
+
+            @foreach ($user->vehicules as $vehicule)
+                <div class="col-md-6 mt-2">
+
+                    <!-- Lien d'accès au détails véhicule -->
+                    <a class="text-decoration-none" href="{{ route('vehicules.show', $vehicule) }}">
+                        <div class="card w-100 mb-4 mx-auto">
+
+                            <!-- Carte body -->
+                            <div class="card-body p-0">
+                                <img class="w-100 rounded-top" src="{{ asset('images/' . $vehicule->image) }}">
+                            </div>
+
+                            <!-- BOUTON SUPPRESSION COMPTE -->
+                            <div class="card-footer text-center">
+                                <form action="{{ route('vehicules.destroy', $vehicule) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><small>Supprimer l'annonce</small></button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </a>
+
+                </div>
+            @endforeach
+
+        </div>
+    </div>
+
 
 
 

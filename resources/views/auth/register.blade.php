@@ -3,46 +3,41 @@
 @section('content')
 
 
-    <!-- CONTAINER-FLUID 
-    ============================================================= -->
+
+
+
     <div class="container-fluid mt-5">
-
-
-
-
-        <!-- MESSAGES ALERTE SUCCESS/DANGER
-        ============================================================= -->
-        @include('messages')
-
-
-
-
-
-        <!-- GAUCHE ( FORMULAIRE INSCRIPTION )
-        ============================================================= -->
         <div class="row align-items-center justify-content-center" id="row_register">
+
+
+
+
+
+            <!-- SECTION 1 : GAUCHE CARTE "FORMULAIRE"
+            ============================================================= -->
             <div class="col-md-6 col-sm-11 d-flex justify-content-center" id="left_register">
-
-
-                <!-- CARD 
-                ============================================================= -->
                 <div class="card col-md-10 col-sm-12 border-0">
 
 
                     <!-- CARD HEADER -->
                     <h1 class="card-header bg-transparent text-center border-0"><span class="border-bottom border-secondary border-2">{{ __('Inscription') }}</span></h1>
 
-                    <!-- CARD BODY -->
+
+                    <!-- MESSAGES ALERTE SUCCESS/DANGER -->
+                    <div class="row col-md-9 mx-auto mt-4">
+                        <div class="col">
+                            @include('messages')
+                        </div>
+                    </div>
+
+
+                    <!-- FORMULAIRE INSCRIPTION DANS CARD BODY-->
                     <div class="card-body my-4" id="card_body_register">
-
-
-                        <!-- FORMULAIRE INSCRIPTION 
-                        ============================================================= -->
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
 
-                            <!-- ( NOM - PRENOM - NUMERO TELEPHONE - NUMERO PERMIS - DATE PERMIS - PAYS PERMIS - AGE - IMAGE - ADRESSE E-MAIL - MOT DE PASSE - MOT DE PASSE CONFIRM ) -->
+                            <!-- NOM - PRENOM - NUMERO TELEPHONE - NUMERO PERMIS - DATE PERMIS - PAYS PERMIS - AGE - IMAGE - ADRESSE E-MAIL - MOT DE PASSE - MOT DE PASSE CONFIRM -->
                             <div class="row justify-content-center">
 
 
@@ -220,22 +215,24 @@
 
 
                         </form>
-
-
                     </div>
 
 
                 </div>
-
-
             </div>
 
 
-            <!-- DROITE (IMAGE)
+
+
+
+            <!-- SECTION 2 : DROITE IMAGE
             ============================================================= -->
             <div class="col-md-6 p-0" id="right_register">
                 <img class="py-2 pe-2" src="./images/fond.jpg" alt="Land-Rover">
             </div>
+
+
+
 
 
         </div>
@@ -271,6 +268,9 @@
         } 
 
     </script>
+
+
+
 
 
 @endsection
