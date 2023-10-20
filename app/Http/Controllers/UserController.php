@@ -77,7 +77,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // Vérifie si l'utilisateur connecté est l'utilisateur à supprimer
-        if (Auth::user()->id == $user->id) 
+        if (Auth::user()->id == $user->id || Auth::user()->role_id == 2 ) 
         {
             // Supprime l'utilisateur de la base de données
             $user->delete();

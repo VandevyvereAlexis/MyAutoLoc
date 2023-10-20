@@ -28,29 +28,29 @@ return new class extends Migration
                 'Hybride rechargeable',
             ]);                          
 
-            $table->string('image', 50);                            // colonne "image" type chaîne de caractères limite 50 caractères
+            $table->string('image', 50);                                                // colonne "image" type chaîne de caractères limite 50 caractères
 
-            $table->string('immatriculation', 10);                  // colonne "immatriculation" type chaîne de caractères limite 10 caractères
+            $table->string('immatriculation', 10);                                      // colonne "immatriculation" type chaîne de caractères limite 10 caractères
 
-            $table->char('annee', 4);                               // colonne "année" type chaîne de caractères longueur fixe 4 caractères
+            $table->char('annee', 4);                                                   // colonne "année" type chaîne de caractères longueur fixe 4 caractères
 
-            $table->char('kilometrage', 6);                         // colonne "kilometrage" type chaîne de caractères longueur fixe 6 caractères
+            $table->char('kilometrage', 6);                                             // colonne "kilometrage" type chaîne de caractères longueur fixe 6 caractères
 
-            $table->text('description');                            // colonne "description" type texte
+            $table->text('description');                                                // colonne "description" type texte
 
-            $table->integer('prix');                                // colonne "prix" type entier
+            $table->integer('prix');                                                    // colonne "prix" type entier
 
-            $table->integer('nombre_places');                       // colonne "nombre_places" type entier 
+            $table->integer('nombre_places');                                           // colonne "nombre_places" type entier 
 
-            $table->date('date_controle');                          // colonne "date_controle" type date
+            $table->date('date_controle');                                              // colonne "date_controle" type date
 
-            $table->foreignId('adresse_id')->constrained();         // colonne "adresse_id" type clé étrangère liée à table "adresse"
+            $table->foreignId('adresse_id')->constrained()->onDelete('cascade');        // colonne "adresse_id" type clé étrangère liée à table "adresse"
 
-            $table->timestamps();                                   // colonne "created_at" et "updated_at" type timestamp pour timestamps de création et mise à jour
+            $table->timestamps();                                                       // colonne "created_at" et "updated_at" type timestamp pour timestamps de création et mise à jour
 
-            $table->foreignId('categorie_id')->constrained();       // colonne "categorie_id" type clé étrangère liée à table "categorie"
+            $table->foreignId('categorie_id')->constrained();                           // colonne "categorie_id" type clé étrangère liée à table "categorie"
 
-            $table->foreignId('user_id')->constrained();            // colonne "role_id" type clé étrangère liée à table "user"
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');           // colonne "role_id" type clé étrangère liée à table "user"
         });
     }
 

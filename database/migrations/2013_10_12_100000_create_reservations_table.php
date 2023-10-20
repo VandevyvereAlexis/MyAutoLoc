@@ -25,11 +25,11 @@ return new class extends Migration
 
             $table->timestamps();                                                       // Colonnes "created_at" et "updated_at" de type timestamp pour gérer les horodatages de création et de mise à jour
 
-            $table->foreignId('vehicule_id')->constrained()->onDelete('cascade');                            // Colonne "vehicule_id" de type clé étrangère liée à la table "vehicules"
+            $table->foreignId('vehicule_id')->constrained()->onDelete('cascade');       // Colonne "vehicule_id" de type clé étrangère liée à la table "vehicules"
 
-            $table->foreignId('user_id')->constrained();                                // Colonne "user_id" de type clé étrangère liée à la table "users"
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');           // Colonne "user_id" de type clé étrangère liée à la table "users"
 
-            $table->foreignId('forfait_id')->constrained();                             // Colonne "forfait_id" de type clé étrangère liée à la table "forfaits"
+            $table->foreignId('forfait_id')->constrained()->onDelete('cascade');        // Colonne "forfait_id" de type clé étrangère liée à la table "forfaits"
         });
     }
 

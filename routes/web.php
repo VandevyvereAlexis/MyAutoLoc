@@ -47,7 +47,7 @@ Route::put('/user/updatepassword/{user}', [App\Http\Controllers\UserController::
 
 
 // Route de ressources pour la gestion des véhicules avec le contrôleur VehiculeController.
-Route::resource('/vehicules', VehiculeController::class);
+Route::resource('/vehicules', VehiculeController::class)->except('edit');
 
 
 // Route pour afficher les détails d'un véhicule en fonction de son ID.
@@ -59,11 +59,11 @@ Route::get('/categorie/{categorie}', [CategorieController::class, 'show'])->name
 
 
 // Route pour gérer les opérations CRUD (Create, Read, Update, Delete) pour les réservations
-Route::resource('/reservations', App\Http\Controllers\ReservationController::class);
+Route::resource('/reservations', App\Http\Controllers\ReservationController::class)->except('index', 'create', 'edit', 'show', 'edit', 'update', 'destroy');
 
 
-// Route pour accéder à la page d'administration
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');//->middleware('admin');
+// Route pour accéder à la page d'administration + application du middleware 'admin' pour effectuer des vérifications d'autorisation
+Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('admin');
 
 
 

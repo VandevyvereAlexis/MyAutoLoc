@@ -69,19 +69,20 @@
 
 
 
-        <!-- SECTION 2 RESERVATION
+        <!-- SECTION 2 
         ========================================================== -->
         <div class="row" id="section_show_2">
 
 
-            <!-- AFFICHAGE IMAGE VEHICULE -->
+            <!-- Affichage image véhicule -->
             <div class="col-md-6 col-sm-12 mx-auto" id="col_1_show_vehicules">
                 <img class="rounded w-100" src="{{ asset('images/' . $vehicule->image) }}" alt="Véhicule">
             </div>
 
 
-            <!-- CARTE RESERVATION -->
+            <!-- Carte réservation -->
             <div class="col-md-6 d-flex align-items-center justify-content-center mx-auto">
+
                 <form method="POST" action="{{ route('reservations.store') }}">
                 @csrf
 
@@ -89,29 +90,29 @@
 
                     <div class="card p-5" style="width: 29rem;">
 
-                        <!-- DATE DEBUT -->
+                        <!-- Date début -->
                         <label class="ms-1" for="">Début</label>
                         <div class="d-flex gap-1 mb-4">
                             <input class="col-6 p-2" type="date" name="date_debut" min="{{ date('Y-m-d') }}">
-                            <select class="col-6" id="demi_journee_debut" name="demi_journee_debut">
+                            <select class="col-6" id="demi_journee_debut" name="date_debut_demi_journee">
                                 <option value="avant-midi">Avant-midi</option>
                                 <option value="apres-midi">Après-midi</option>
                             </select>
                         </div>
 
 
-                        <!-- DATE FIN -->
+                        <!-- Date fin -->
                         <label class="ms-1" for="">Fin</label>
                         <div class="d-flex gap-1 mb-4">
                             <input class="col-6 p-2" type="date" name="date_fin" min="{{ date('Y-m-d') }}">
-                            <select class="col-6" id="demi_journee_fin" name="demi_journee_fin">
+                            <select class="col-6" id="demi_journee_fin" name="date_fin_demi_journee">
                                 <option value="avant-midi">Avant-midi</option>
                                 <option value="apres-midi">Après-midi</option>
                             </select>
                         </div>
 
 
-                        <!-- FORFAITS -->
+                        <!-- Forfaits -->
                         <label class="text-center mt-1" for="">Forfait</label>
                         <select class="col-5 mb-4 p-2 mx-auto text-center" id="demi_journee_fin" name="forfait_id">
                             @foreach ($forfaits as $forfait)
@@ -119,20 +120,20 @@
                             @endforeach
                         </select>
 
-                        <!-- AFFICHAGE PRIX LOCATION -->
-                        <p class="text-center mb-4"><small class="fw-normal">La tarification est de <span class="fw-medium border-bottom border-secondary">{{ $vehicule->prix }} €</span> par jour, quelle que soit l'heure de la journée.</small></p>
 
-                        <!-- SI USER NON CONNECTER / NON INSCRIT -->
+                        <!-- Affichage prix location véhicule -->
+                        <p class="text-center mb-4">{{ $vehicule->prix }}€ <small class="border-bottom border-secondary">par jour</small></p>
+
+
                         @guest
                             <p class="fw-light border-top border-bottom border-secondary">Pour réserver un véhicule, vous devez être connecté ou inscrit. Si vous avez déjà un compte, veuillez vous connecter. Sinon, veuillez vous inscrire.<a class="text-decoration-none" href="{{ route('register') }}"> Inscription</a> | <a class="text-decoration-none" href="{{ route('login') }}">Connexion</a></p>
-                        
-                        <!-- SINON -->
+                            <!-- LIEN INSCRIPTION -->
                         @else
                             <button type="submit" class="btn btn-primary mb-4">{{ __('Réserver ce véhicule') }}</button>
                         @endif
 
 
-                        <!-- INFOS SUPPLEMENTAIRES -->
+                        <!-- 'Infos' -->
                         <p class="lh-1 fw-bold text-danger-emphasis mb-4 mt-2"><small>Les horaires de réservation et de restitution doivent être convenus en consultation avec le propriétaire de la voiture.</small></p>
                         <i class="fa-solid fa-circle-check mb-2 mt-2"><small class="ms-2">Conducteurs supplémentaires gratuits</small></i>
                         <i class="fa-solid fa-circle-check"><small class="ms-2">Équipements inclus</small></i>

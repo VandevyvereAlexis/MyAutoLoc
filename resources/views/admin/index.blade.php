@@ -80,7 +80,7 @@
                                         <form method="post" action="{{ route('vehicules.destroy', $vehicule) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            <button type="submit" class="btn btn-danger">Supprimer</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -132,10 +132,10 @@
                                     <td>{{ $user->age }}</td>
                                     <td>{{ $user->date_permis }}</td>
                                     <td>
-                                        <form method="post" action="{{ route('user.destroy', $user) }}">
+                                        <form method="POST" action="{{ route('user.destroy', $user) }}">
                                         @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                        @method("delete")
+                                            <button type="submit" class="btn btn-danger">{{ __('Supprimer le compte') }}</button>
                                         </form>
                                     </td>
                                 </tr>
